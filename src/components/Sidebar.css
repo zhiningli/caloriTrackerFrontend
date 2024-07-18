@@ -1,0 +1,31 @@
+.sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    transition: width 0.3s;
+  }
+  
+  .sidebar.collapsed {
+    width: 60px;
+    padding: 10px;
+  }
+  
+  .toggle-button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+  }
+  
+  .greeting {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
