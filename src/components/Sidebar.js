@@ -2,20 +2,19 @@ import React, { useState } from "react";
 import './Sidebar.css';
 
 const Sidebar = () => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(false);
 
-    const toggleSideBar = () => {
-        setIsCollapsed(!isCollapsed);
+    const handleCollapse = () => {
+        setCollapsed(!collapsed);
     };
 
 
     return (
-        <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
-            <button className="toggle-button" onClick={toggleSideBar}>
-                {isCollapsed ? 'Expand' : 'Collapse'}
+        <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
+            <button className="collapse-button" onClick={handleCollapse}>
+                {collapsed ? '>>' : '<<'}
             </button>
-
-            {!isCollapsed && (
+            {!collapsed && (
                 <>
                     <div className="greeting">
                         <h2>Hello User, how is your day today</h2>
