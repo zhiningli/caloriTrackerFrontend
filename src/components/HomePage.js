@@ -1,30 +1,24 @@
-import React, { useState } from 'react';
-import Sidebar from './Sidebar';
-import ShoppingList from './ShoppingList';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 
-function HomePage() {
-  const [showShoppingList, setShowShoppingList] = useState(false);
+const HomePage = () => {
+    const navigate = useNavigate();
 
-  const handleCreateNewMeals = () => {
-    setShowShoppingList(true);
-  };
+    const handleGuestLogin = () => {
+        navigate('/');
+    };
 
-  return (
-    <div className='HomePage'>
-      <Sidebar />
-      <header className='App-header'>
-        <h1>Calorie Tracker</h1>
-        <button className='action-button' onClick={handleCreateNewMeals}>
-          Create New Meals
-        </button>
-        {showShoppingList && <ShoppingList />}
-        <button className='action-button' onClick={() => alert('Record Meals clicked!')}>
-          Record Meals You Have Eaten
-        </button>
-      </header>
-    </div>
-  );
-}
+    const handleLogin = () => {
+        navigate('/login');
+    };
+
+    return (
+        <div className='home-page'>
+            <button className='login-button' onClick={handleGuestLogin}> Log In as Guest</button>
+            <button className='login-button' onClick={handleLogin}>Log In</button>
+        </div>
+    );
+};
 
 export default HomePage;
