@@ -13,10 +13,15 @@ const HomePage = () => {
         navigate('/login');
     };
 
+    const handleRegister = () => {
+        navigate('/register');
+    };
+
     return (
         <div className='home-page'>
             <button className='login-button' onClick={handleGuestLogin}> Log In as Guest</button>
             <button className='login-button' onClick={handleLogin}>Log In</button>
+            <button className='login-button' onClick={handleRegister}>Register</button>
         </div>
     );
 };

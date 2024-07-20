@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
-import ShoppingList from './ShoppingList';
+import Sidebar from './Gadgets/Sidebar';
+import ShoppingList from './Gadgets/ShoppingList';
 import './MealPlanPage.css';
 
 function MealPlanPage() {

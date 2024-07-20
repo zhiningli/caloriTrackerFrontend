@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Category from './Category';
+import Category from '../Category';
 import SearchBar from './SearchBar';
 
 const categories = [
