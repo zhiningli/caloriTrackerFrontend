@@ -1,29 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import LoginPage from './components/LoginPage';
 import './App.css';
-import Sidebar from './components/Sidebar';
-import ShoppingList from './components/ShoppingList';
 
 function App() {
-  const [showShoppingList, setShowShoppingList] = useState(false);
-
-  const handleCreateNewMeals = () => {
-    setShowShoppingList(true);
-  };
-
   return (
-    <div className='App'>
-      <Sidebar />
-      <header className='App-header'>
-        <h1>Calorie Tracker</h1>
-        <button className='action-button' onClick={handleCreateNewMeals}>
-          Create New Meals
-        </button>
-        {showShoppingList && <ShoppingList />}
-        <button className='action-button' onClick={() => alert('Record Meals clicked!')}>
-          Record Meals You Have Eaten
-        </button>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
   );
 }
 
