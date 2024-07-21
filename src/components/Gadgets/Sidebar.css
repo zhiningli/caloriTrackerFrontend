@@ -1,31 +1,31 @@
 .sidebar {
-  width: 200px;
+  flex: 0 0 250px;
+  background-color: #f9f7c1;
   padding: 20px;
-  background-color: #f0f0f0;
-  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  height: 100%;
 }
 
-.sidebar.collapsed {
-  width: 40px;
-  padding: 20px 10px;
-}
-
-.collapse-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
+.sidebar h2 {
   font-size: 18px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.sidebar button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #2938cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
-button {
-  display: block;
-  margin: 10px 0;
-}
-
-.sidebar.collapsed h2,
-.sidebar.collapsed button {
-  display: none;
+.sidebar button:hover {
+  background-color: #1f2b99;
 }

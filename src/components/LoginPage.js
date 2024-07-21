@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css';
 
-const LoginPage = () =>{
+const LoginPage = () => {
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -15,13 +15,13 @@ const LoginPage = () =>{
                 password
             });
             console.log('Login response: ', response.data);
-            if (response.status === 200){
-                alert('login successful!')
+            if (response.status === 200) {
+                alert('login successful!');
                 navigate('/mealplan');
             }
         } catch (error) {
-            console.error('Error loggin in', error);
-            alert('login failed. Please check your credentials and try again.')
+            console.error('Error logging in', error);
+            alert('login failed. Please check your credentials and try again.');
         }
     };
 
@@ -35,24 +35,24 @@ const LoginPage = () =>{
             <div className='login-form'>
                 <label>
                     Username or email:
-                    <input
-                        type='text'
-                        value={identifier}
-                        onChange={(e) => setIdentifier(e.target.value)}
-                        placeholder='Enter username or email'
-                    />
                 </label>
+                <input
+                    type='text'
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)}
+                    placeholder='Enter username or email'
+                />
                 <label>
                     Password:
-                    <input
-                        type='password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder='Enter password'
-                    />
                 </label>
-                <button onClick={handleLogin}>Log In</button>
-                <button onClick={handleRegister}>Register</button>
+                <input
+                    type='password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder='Enter password'
+                />
+                <button className='login-button' onClick={handleLogin}>Log In</button>
+                <button className='register-button' onClick={handleRegister}>Register</button>
             </div>
         </div>
     );
