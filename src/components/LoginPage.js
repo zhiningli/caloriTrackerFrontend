@@ -1,17 +1,32 @@
 import React, { useState } from 'react';
+import { navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './LoginPage.css';
 
 const LoginPage = () =>{
-    const [username, setUsername] = useState('');
+    const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const navigate = useNavigate();
 
-    const hangleLogin = () => {
-        console.log('Login ', {username, password, email});
+    const handleLogin = async () => {
+        try {
+            const response = await axios.post('http://localhost:8080/api/users/login', {
+                identifier,
+                password
+            });
+            console.log('Login response: ', response.data);
+            if (response.status === 200){
+                alert('login successful!')
+                navigate('/mealplan');
+            }
+        } catch (error) {
+            console.error('Error loggin in', error);
+            alert('login failed. Please check your credentials and try again.')
+        }
     };
 
     const handleRegister = () => {
-        console.log('Register: ', { username, password, email});
+        navigate('/register');
     };
 
     return (
@@ -19,11 +34,12 @@ const LoginPage = () =>{
             <h2>Login</h2>
             <div className='login-form'>
                 <label>
-                    Username:
+                    Username or email:
                     <input
                         type='text'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={identifier}
+                        onChange={(e) => setIdentifier(e.target.value)}
+                        placeholder='Enter username or email'
                     />
                 </label>
                 <label>
@@ -32,16 +48,11 @@ const LoginPage = () =>{
                         type='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Enter password'
                     />
                 </label>
-                <label>
-                    Email:
-                    <input
-                        type='email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </label>
+                <button onClick={handleLogin}>Log In</button>
+                <button onClick={handleRegister}>Register</button>
             </div>
         </div>
     );
