@@ -6,14 +6,9 @@ function Header() {
     return(
         <HeaderContainerDiv>
             <HeaderItemDiv>
-                Placeholder for header options
+                This is the header
                 <br />
                 <HeaderLabel>Hello World</HeaderLabel>
-            </HeaderItemDiv>
-            <HeaderItemDiv>
-                Placeholder for hear options
-                <br/>  
-                <HeaderLabel>How are you</HeaderLabel>
             </HeaderItemDiv>
         </HeaderContainerDiv>
     )

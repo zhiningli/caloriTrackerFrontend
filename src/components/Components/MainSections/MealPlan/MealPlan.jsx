@@ -6,7 +6,9 @@ function MealPlan(){
     return(
         <MainSectionContainer>
             <Title title="MealPlan"/>
-            <SectionContainer>MealPlan for today</SectionContainer>
+            <SectionContainer>
+                This is the main section
+                MealPlan for today</SectionContainer>
         </MainSectionContainer>
     )
 }

@@ -6,8 +6,8 @@ function MainHeader(){
         <div>
             <MainHeaderContainer>
                 <MainHeaderTitleContainer>
-                    Calorie Tracker
-                    <MainHeaderTypography>This is a decorator for the text</MainHeaderTypography>
+                    This is the main header where I will put a logo
+                    <MainHeaderTypography>Calorie Tracker</MainHeaderTypography>
                 </MainHeaderTitleContainer>
             </MainHeaderContainer>
         </div>
