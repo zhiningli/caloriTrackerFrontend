@@ -8,7 +8,8 @@ function MealPlan(){
             <Title title="MealPlan"/>
             <SectionContainer>
                 This is the main section
-                MealPlan for today</SectionContainer>
+                MealPlan for today
+            </SectionContainer>
         </MainSectionContainer>
     )
 }
