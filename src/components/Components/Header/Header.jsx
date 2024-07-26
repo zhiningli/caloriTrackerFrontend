@@ -8,8 +8,10 @@ function Header() {
             <HeaderItemDiv>
                 This is the header
                 <br />
-                <HeaderLabel>Hello World</HeaderLabel>
             </HeaderItemDiv>
+            <HeaderItemDiv>
+                <HeaderLabel>Here I will place some menu for logout, directory to other pages</HeaderLabel>
+            </HeaderItemDiv>        
         </HeaderContainerDiv>
     )
 };
