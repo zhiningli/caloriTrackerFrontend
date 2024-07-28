@@ -1,5 +1,5 @@
 import React from 'react';
-import {MainSectionContainer, SectionContainer } from '../MainSection.sytle';
+import {MainSectionContainer, SectionContainer, Table, TableHeader, TableCell, TableRow } from '../MainSection.sytle';
 import Title from '../Title/Title';
 import Button from '../../atom/Button';
 
@@ -12,15 +12,39 @@ function MealPlan(){
                 <br />
                 MealPlan for today
                 <br />
-                You have no meal planned for today. Wanna create one? 
-                <br/>
-                <Button className='action-button' ButtonLabel="Create / Record New Meals">
-                </Button>
             
+            </SectionContainer>
+            <SectionContainer>
+                <Table>
+                    <thead>
+                        <TableRow>
+                            <TableHeader>Name</TableHeader>
+                            <TableHeader>Category</TableHeader>
+                            <TableHeader>Quantity</TableHeader>
+                            <TableHeader>Calories</TableHeader>
+                            <TableHeader>Protein</TableHeader>
+                            <TableHeader>Fats</TableHeader>
+                            <TableHeader>Carbs</TableHeader>
+                        </TableRow>
+                    </thead>
+                    <tbody>
+                        <TableRow>
+                            <TableCell>Apple</TableCell>
+                            <TableCell>Fruit</TableCell>
+                            <TableCell>150g</TableCell>
+                            <TableCell>78</TableCell>
+                            <TableCell>0.45g</TableCell>
+                            <TableCell>0.3g</TableCell>
+                            <TableCell>21g</TableCell>
+                        </TableRow>
+                    </tbody>
+                </Table>
             </SectionContainer>
 
             <SectionContainer>
                 What is on your mind?
+                <br/>
+                <Button className='action-button' ButtonLabel="Create / Record New Meals"/>
             </SectionContainer>
         </MainSectionContainer>
     )
