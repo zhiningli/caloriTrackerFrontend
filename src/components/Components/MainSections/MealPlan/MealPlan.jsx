@@ -20,22 +20,24 @@ function MealPlan(){
                         <TableRow>
                             <TableHeader>Name</TableHeader>
                             <TableHeader>Category</TableHeader>
-                            <TableHeader>Quantity</TableHeader>
                             <TableHeader>Calories</TableHeader>
                             <TableHeader>Protein</TableHeader>
                             <TableHeader>Fats</TableHeader>
                             <TableHeader>Carbs</TableHeader>
+                            <TableHeader>Quantity</TableHeader>
+                            <TableHeader>Actions</TableHeader>
                         </TableRow>
                     </thead>
                     <tbody>
                         <TableRow>
                             <TableCell>Apple</TableCell>
                             <TableCell>Fruit</TableCell>
-                            <TableCell>150g</TableCell>
                             <TableCell>78</TableCell>
                             <TableCell>0.45g</TableCell>
                             <TableCell>0.3g</TableCell>
                             <TableCell>21g</TableCell>
+                            <TableCell>150g</TableCell>
+                            <TableCell>Placeholder for action components</TableCell>
                         </TableRow>
                     </tbody>
                 </Table>
