@@ -7,10 +7,11 @@ export const MainSectionContainer = styled.div`
     justify-content: space-between;
     height: 100%;
     padding: 10px;
+    background=color: ${props=>(props.theme.colorFurRed)};
 `;
 
 export const SectionContainer = styled.div`
-    background-color: #f9f9f9;
+    background-color: ${props=>(props.theme.colorFurRed)};
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-bottom: 10px;

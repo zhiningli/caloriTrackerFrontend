@@ -1,33 +1,19 @@
-import { createBrowserRouter, Navigate, RouterProvider, Route, Routes } from "react-router-dom";
 import React from 'react';
-import Layout from "./components/Components/Layout/Layout";
-import MealPlan from "./components/Components/MainSections/MealPlan/MealPlan.jsx";
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Layout from './components/Components/Layout/Layout';
+import MealPlan from './components/Components/MainSections/MealPlan/MealPlan.jsx';
 
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Root />,
-        children: [
-            {
-                path: 'mealplan',
-                element: <MealPlan />
-            },
-        ],
-    },
-]);
-
-export default function App() {
-    return <RouterProvider router={router} />;
-}
-
-function Root() {
+function App() {
     return (
-        <Routes>
-            <Route element={<Layout />}>
-                <Route index element={<Navigate to="mealplan" />} />
-                <Route path="mealplan" element={<MealPlan />} />
-            </Route>
-        </Routes>
+        <Router>
+            <Routes>
+                <Route path="*" element={<Layout />}>
+                    <Route index element={<Navigate to="mealplan" />} />
+                    <Route path="mealplan" element={<MealPlan />} />
+                </Route>
+            </Routes>
+        </Router>
     );
 }
 
+export default App;

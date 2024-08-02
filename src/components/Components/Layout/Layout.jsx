@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader.jsx';
 import Header from '../Header/Header.jsx';
 import SideBar from '../SideBar/SideBar.jsx';
-import { Outlet } from 'react-router';
 import { MainContainer, Wrapper } from './Layout.styles';
 
-function Layout(){
-    
+function Layout() {
     return (
         <div>
-            <MainHeader/>
+            <MainHeader />
             <Header />
             <Wrapper>
-                <SideBar/>
+                <SideBar />
                 <MainContainer>
-                    How are you doing today
-                    <Outlet/>
+                    <Outlet /> {/* This is where the child routes will be rendered */}
                 </MainContainer>
             </Wrapper>
         </div>
