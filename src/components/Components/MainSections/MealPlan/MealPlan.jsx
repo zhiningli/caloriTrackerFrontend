@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, MainSectionContainer, MealSectionContainer } from '../MainSection.sytle';
 import Title from '../Title/Title';
-import Button from '../../atom/Button';
+import Button from '../../Reusable Components/Button';
 import MealPlanComponent from './MealPlanComponents/MealPlanComponent';
 
 function MealPlan() {
