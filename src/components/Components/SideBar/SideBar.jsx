@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DisplayBlock from '../atom/DisplayBlock';
+import DisplayBlock from '../Reusable Components/DisplayBlock';
 import { SideBarContainer, GridContainer, CalendarContainer } from './SideBar.style';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
