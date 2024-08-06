@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MealPlanContainer, FigureTile, FigureBlock, DetailTile, NameSection, IngredientSection, NutritionSection, NutritionBlock, CalorieTile, ActionComponentTile } from './MealPlanComponent.styles';
 
-const MealPlanComponent = ({ name, remark, ingredients, protein, fat, carbs, calories }) => {
+const MealPlanComponent = ({ name, ingredients, protein, fat, carbs, calories }) => {
     const [isGrams, setIsGrams] = useState(true);
 
     const toggleUnits = () => {
