@@ -2,8 +2,8 @@ import React from 'react';
 import { MainSectionContainer, MealSectionContainer, Divider } from '../MainSection.sytle';
 import Title from '../Title/Title';
 import Button from '../../Reusable Components/Button';
-import MealPlanComponent from './MealPlanComponents/MealPlanComponent';
-import DailyIndicatorComponent from './MealPlanComponents/DailyIndicatorComponent';
+import MealPlanComponent from './MealPlanComponents/MealPlanComponent/MealPlanComponent';
+import DailyIndicatorComponent from './MealPlanComponents/DailyIndicatorComponent/DailyIndicatorComponent';
 
 function MealPlan() {
     return (
