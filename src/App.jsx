@@ -5,10 +5,12 @@ import MealPlan from './components/Components/MainSections/MealPlan/MealPlan.jsx
 import HomePage from './components/HomePage';
 import LoginPage from './components/Components/AccessPages/LoginPage/LoginPage.js';
 // Assuming you also have a RegisterPage component
-import RegistrationPage from './components/RegistrationPage'; 
+import RegistrationPage from './components/Components/AccessPages/RegistrationPage/RegistrationPage.js'; 
+import GlobalStyle from './globalStyles.jsx';
 
 function App() {
     return (
+        <>
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -20,6 +22,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </Router>
+        </>
     );
 }
 

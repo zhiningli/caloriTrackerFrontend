@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useForm, FormProvider } from 'react-hook-form';
 import Input from '../../Inputs/Input';
-import { LoginPageDiv, LoginPageButton, LoginPageForm } from './LoginPage.styles';
+import { LoginPageDiv, LoginPageButton, LoginPageForm } from '../AccessPage.styles';
 
 const LoginPage = () => {
 
-    const methods = useForm({
+    const loginMethods = useForm({
         defaultValues: {
             identifier: '',
             password: ''
         }
     });
 
-    const { handleSubmit } = methods;
+    const { handleSubmit } = loginMethods;
     const navigate = useNavigate();
 
     const handleLogin = async (data) => {
@@ -38,7 +38,7 @@ const LoginPage = () => {
     return (
         <LoginPageDiv>
             <h2>Login</h2>
-            <FormProvider {...methods}>
+            <FormProvider {...loginMethods}>
                 <LoginPageForm onSubmit={handleSubmit(handleLogin)}>
                     <Input
                         name="identifier"

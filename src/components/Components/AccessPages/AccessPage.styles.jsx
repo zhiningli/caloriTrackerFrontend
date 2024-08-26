@@ -6,8 +6,9 @@ export const LoginPageDiv = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 450px;
+    width: 800px;
     padding: 20px;
+    margin: auto; 
 `;
 
 export const LoginPageForm = styled.form`
