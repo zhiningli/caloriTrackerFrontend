@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Layout from './components/Components/Layout/Layout';
 import MealPlan from './components/Components/MainSections/MealPlan/MealPlan.jsx';
 import HomePage from './components/HomePage';
-import LoginPage from './components/LoginPage';
+import LoginPage from './components/Components/AccessPages/LoginPage/LoginPage.js';
 // Assuming you also have a RegisterPage component
 import RegistrationPage from './components/RegistrationPage'; 
 

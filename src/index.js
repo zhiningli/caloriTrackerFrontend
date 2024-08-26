@@ -6,8 +6,6 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-// Log the theme object to ensure it's defined
-console.log('Theme Object:', themeColor);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,17 +1,18 @@
-import React from 'react';
-import { InputLabel, InputField, ErrorMessage } from './Input.styles';
+import React, {forwardRef } from 'react';
+import { InputLabel, InputField, ErrorMessage, InputWrapper } from './Input.styles';
+import {useFormContext} from 'react-hook-form';
 
-const Input = ({ 
+const Input = forwardRef(({ 
     name, 
     label, 
     isRequired, 
     validationRules, 
     ...inputProps 
-}) => {
+}, ref) => {
     const { register, formState: { errors } } = useFormContext();
 
     return (
-        <div>
+        <InputWrapper>
             <InputLabel>
                 {label} {isRequired && <span style={{ color: 'red' }}>*</span>}
             </InputLabel>
@@ -23,8 +24,8 @@ const Input = ({
                 {...inputProps}
             />
             {errors[name] && <ErrorMessage>{errors[name].message}</ErrorMessage>}
-        </div>
+        </InputWrapper>
     );
-};s
+});
 
 export default Input;
