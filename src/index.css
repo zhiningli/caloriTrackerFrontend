@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Additional global styles */
+body {
+  font-family: Arial;
+  background-color: #F2E8DA;
+  color: #333;
+  line-height: 1.6;
+}

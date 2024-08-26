@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -6,6 +6,8 @@ import Input from '../../Inputs/Input';
 import { LoginPageDiv, LoginPageButton, LoginPageForm } from '../AccessPage.styles';
 
 const RegistrationPage = () => {
+    const [passwordMatchError, setPasswordMatchError] = useState(null);
+    
     const registrationMethods = useForm({
         defaultValues: {
             username: '',
@@ -15,11 +17,24 @@ const RegistrationPage = () => {
         }
     });
 
-    const { handleSubmit, watch, setError } = registrationMethods;
+    const { handleSubmit, watch, setError, clearErrors } = registrationMethods;
     const navigate = useNavigate();
 
+    const password = watch('password');
+    const rePassword = watch('rePassword');
+
+    useEffect(() => {
+        if (rePassword && password !== rePassword) {
+            setPasswordMatchError("Passwords do not match.");
+            setError("rePassword", { type: "manual", message: "Passwords do not match." });
+        } else {
+            setPasswordMatchError(null);
+            clearErrors("rePassword");
+        }
+    }, [password, rePassword, setError, clearErrors]);
+
     const handleRegister = async (data) => {
-        const { username, password, rePassword, email } = data;
+        const { username, password, email } = data;
 
         if (password !== rePassword) {
             setError("rePassword", { type: "manual", message: "Passwords do not match." });
@@ -89,6 +104,7 @@ const RegistrationPage = () => {
                         validationRules={{
                             required: 'Please re-enter your password',
                         }}
+                        error={passwordMatchError}
                     />
                     <LoginPageButton type="submit">
                         Register
