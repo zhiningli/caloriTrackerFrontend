@@ -1,14 +1,16 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Divider, MainSectionContainer, MealSectionContainer } from '../MainSection.sytle';
 import Title from '../Title/Title';
 import Button from '../../Reusable Components/Button';
 import MealPlanComponent from './MealPlanComponents/MealPlanComponent';
 
 function MealPlan() {
+    const {slug} = useParams();
     return (
         <MainSectionContainer>
             <div className='Calorie Indicator'/>
-            <Title title="MealPlan" />
+            <Title title="MealPlan for">{slug}</Title>
             <MealSectionContainer>
                 <MealPlanComponent name='Kebab' remark='Dinner' ingredients={['Doner', 'Lettuce', 'Tomato', 'Naan Bread']} protein={40} fat={40} carbs={40} calories={600} />
                 <Divider/>

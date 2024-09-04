@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useForm, FormProvider } from 'react-hook-form';
 import Input from '../../Inputs/Input';
 import { LoginPageDiv, LoginPageButton, LoginPageForm } from '../AccessPage.styles';
+import { generateSlug, generateIndexedSlug } from './RegistrationMethods/Slug';
 
 const RegistrationPage = () => {
     const [passwordMatchError, setPasswordMatchError] = useState(null);
@@ -33,8 +34,16 @@ const RegistrationPage = () => {
         }
     }, [password, rePassword, setError, clearErrors]);
 
+    const handleLogin = () => {
+        navigate('/login');
+    }
+
     const handleRegister = async (data) => {
         const { username, password, email } = data;
+
+        const slug = await generateIndexedSlug(generateSlug(username));
+        console.log('Unique Slug generated: ', slug);
+
 
         if (password !== rePassword) {
             setError("rePassword", { type: "manual", message: "Passwords do not match." });
@@ -46,9 +55,10 @@ const RegistrationPage = () => {
                 username,
                 password,
                 email,
+                slug,
             });
             console.log('Register: ', response.data);
-            navigate('/login');
+            navigate(`/${slug}/mealplan`);
         } catch (error) {
             console.error('Registration error: ', error);
         }
@@ -108,6 +118,9 @@ const RegistrationPage = () => {
                     />
                     <LoginPageButton type="submit">
                         Register
+                    </LoginPageButton>
+                    <LoginPageButton type="button" onClick={handleLogin}>
+                        Login
                     </LoginPageButton>
                 </LoginPageForm>
             </FormProvider>
