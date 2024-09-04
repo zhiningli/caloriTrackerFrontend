@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const MealPlanContainer = styled.div`
     display: flex;
     flex-directino: row;

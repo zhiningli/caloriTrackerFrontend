@@ -2,8 +2,8 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader.jsx';
 import Header from '../Header/Header.jsx';
-import SideBar from '../SideBar/SideBar.jsx';
-import { LayoutContainer, MainContainer, Wrapper } from './Layout.styles';
+// import SideBar from '../SideBar/SideBar.jsx';
+import { LayoutContainer, MainContainer, Wrapper } from './Layout.styles.jsx';
 
 function Layout() {
     return (
@@ -11,7 +11,6 @@ function Layout() {
             <MainHeader />
             <Header />
             <Wrapper>
-                <SideBar />
                 <MainContainer>
                     <Outlet /> {/* This is where the child routes will be rendered */}
                 </MainContainer>
