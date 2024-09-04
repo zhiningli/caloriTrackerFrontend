@@ -13,17 +13,18 @@ const LoginPage = () => {
             password: ''
         }
     });
-
     const { handleSubmit } = loginMethods;
     const navigate = useNavigate();
 
     const handleLogin = async (data) => {
         try {
             const response = await axios.post('http://localhost:8080/api/users/login', data);
-            console.log('Login response: ', response.data);
+            console.log('Login response: ', response);
+    
             if (response.status === 200) {
+                const slug = response.data.slug; // Extract the slug from the response
                 alert('Login successful!');
-                navigate('/mealplan');
+                navigate(`/${slug}/mealplan`); // Navigate to the correct URL with the slug
             }
         } catch (error) {
             console.error('Error logging in', error);
