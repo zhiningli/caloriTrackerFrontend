@@ -2,8 +2,10 @@ import React from 'react';
 import { FormProvider } from 'react-hook-form';
 import Input from '../../Inputs/Input';
 import { LoginPageDiv, LoginPageButton, LoginPageForm } from '../AccessPage.styles';
+import LoadingScreen from '../../LoadingComponent/LoadingScreen';
 
-const LoginPage = ({ handleSubmit, loginMethods, handleLogin, handleRegister }) => {
+const LoginPage = ({ handleSubmit, loginMethods, handleLogin, handleRegister, isLoading }) => {
+
 
     return (
         <LoginPageDiv>
@@ -43,6 +45,7 @@ const LoginPage = ({ handleSubmit, loginMethods, handleLogin, handleRegister }) 
                     </LoginPageButton>
                 </LoginPageForm>
             </FormProvider>
+            {isLoading && <LoadingScreen/>}
         </LoginPageDiv>
     );
 };

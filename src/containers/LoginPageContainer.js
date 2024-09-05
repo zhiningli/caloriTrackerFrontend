@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,9 @@ import { setMeals } from '../redux/mealSlice';
 import LoginPage from '../components/AccessPages/LoginPage/LoginPage';
 
 const LoginPageContainer = () => {
+
+    const [isLoading, setIsLoading] = useState(false);
+
     const loginMethods = useForm({
         defaultValues: {
             identifier: '',
@@ -21,9 +24,9 @@ const LoginPageContainer = () => {
     const dispatch = useDispatch();
 
     const handleLogin = async (data) => {
+        setIsLoading(true);
         try {
             const response = await axios.post('http://localhost:8080/api/users/login', data);
-            console.log('Login response: ', response);
 
             if (response.status === 200) {
                 const { Token, slug, username } = response.data;
@@ -42,6 +45,8 @@ const LoginPageContainer = () => {
         } catch (error) {
             console.error('Error logging in', error);
             alert('Login failed. Please refer to the console for bug information');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -49,10 +54,9 @@ const LoginPageContainer = () => {
         navigate('/register');
     };
 
-    console.log(handleSubmit, loginMethods, handleLogin, handleRegister);
-
     return (
         <LoginPage
+            isLoading={isLoading}
             handleSubmit={handleSubmit}
             loginMethods={loginMethods}
             handleLogin={handleLogin}
