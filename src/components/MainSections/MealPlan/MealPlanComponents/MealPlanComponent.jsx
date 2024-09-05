@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
-import { MealPlanContainer, FigureTile, FigureBlock, DetailTile, NameSection, IngredientSection, NutritionSection, NutritionBlock, CalorieTile, ActionComponentTile } from './MealPlanComponent.styles';
+import { 
+    MealPlanContainer, 
+    DetailTile, 
+    NameSection, 
+    IngredientSection, 
+    NutritionSection, 
+    NutritionBlock, 
+    CalorieTile, 
+    ActionComponentTile 
+} from './MealPlanComponent.styles';
 
-const MealPlanComponent = ({ name, remark, ingredients, protein, fat, carbs, calories }) => {
+const MealPlanComponent = ({ name, ingredients, protein, fat, carbs, calories }) => {
     const [isGrams, setIsGrams] = useState(true);
 
     const toggleUnits = () => {
@@ -10,15 +19,12 @@ const MealPlanComponent = ({ name, remark, ingredients, protein, fat, carbs, cal
 
     return (
         <MealPlanContainer>
-            <FigureTile>
-                <FigureBlock />
-            </FigureTile>
             <DetailTile>
                 <NameSection>
                     Name: {name}
                 </NameSection>
                 <IngredientSection>
-                    Ingredient Section: {ingredients.join(', ')}
+                    Ingredients: {ingredients.join(', ')}
                 </IngredientSection>
                 <NutritionSection>
                     <NutritionBlock onClick={toggleUnits}>
@@ -36,7 +42,7 @@ const MealPlanComponent = ({ name, remark, ingredients, protein, fat, carbs, cal
                 </NutritionSection>
             </DetailTile>
             <CalorieTile>
-                Calories: {calories}kCal
+                Calories: {calories} kCal
             </CalorieTile>
             <ActionComponentTile>
                 Action Icons

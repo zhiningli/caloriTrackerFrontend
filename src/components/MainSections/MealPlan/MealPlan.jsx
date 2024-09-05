@@ -1,21 +1,19 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Divider, MainSectionContainer, MealSectionContainer } from '../MainSection.sytle';
+import { MainSectionContainer, MealSectionContainer } from '../MainSection.sytle';
 import Title from '../Title/Title';
 import Button from '../../Reusable Components/Button';
-import MealPlanComponent from './MealPlanComponents/MealPlanComponent';
+import MealList from '../../../containers/MealList'; 
 
 function MealPlan() {
-    const {slug} = useParams();
+    const { slug } = useParams();
+
     return (
         <MainSectionContainer>
             <div className='Calorie Indicator'/>
             <Title title="MealPlan for">{slug}</Title>
             <MealSectionContainer>
-                <MealPlanComponent name='Kebab' remark='Dinner' ingredients={['Doner', 'Lettuce', 'Tomato', 'Naan Bread']} protein={40} fat={40} carbs={40} calories={600} />
-                <Divider/>
-                <MealPlanComponent name='Salad' remark='Lunch' ingredients={['Lettuce', 'Tomato', 'Naan Bread']} protein={15} fat={3} carbs={40} calories={300} />
-                <Divider/>
+                <MealList />  {/* This will render all the MealPlanComponents based on the fetched data */}
                 <br />
                 <Button className='action-button' ButtonLabel="Create / Record New Meals" />
             </MealSectionContainer>

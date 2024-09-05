@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Layout from './components/Layout/Layout.jsx';
 import MealPlan from './components/MainSections/MealPlan/MealPlan.jsx';
 import HomePage from './components/AccessPages/HomePage/HomePage.js';
-import LoginPage from './components/AccessPages/LoginPage/LoginPage.js';
+import LoginPageContainer from './containers/LoginPageContainer.js';
 import RegistrationPage from './components/AccessPages/RegistrationPage/RegistrationPage.js'; 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPageContainer />} />
                 <Route path="/register" element={<RegistrationPage />} />
                 <Route path="/:slug/mealplan" element={<Layout />}>
                     <Route index element={<MealPlan />} />
