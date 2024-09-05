@@ -12,18 +12,6 @@ export const MealPlanContainer = styled.div`
     border-radius: 10px;
 `
 
-export const FigureTile = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${props=>(props.theme.colorFurRed)};
-    width: 20%;
-    height: 120px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    margin-right: 0; /* Remove margin to align with DetailTile */
-`
-
 export const FigureBlock = styled.div`
     display: flex;
     flex-direction: column;

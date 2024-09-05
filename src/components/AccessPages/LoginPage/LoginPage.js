@@ -1,40 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useForm, FormProvider } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import Input from '../../Inputs/Input';
 import { LoginPageDiv, LoginPageButton, LoginPageForm } from '../AccessPage.styles';
 
-const LoginPage = () => {
-
-    const loginMethods = useForm({
-        defaultValues: {
-            identifier: '',
-            password: ''
-        }
-    });
-    const { handleSubmit } = loginMethods;
-    const navigate = useNavigate();
-
-    const handleLogin = async (data) => {
-        try {
-            const response = await axios.post('http://localhost:8080/api/users/login', data);
-            console.log('Login response: ', response);
-    
-            if (response.status === 200) {
-                const slug = response.data.slug; // Extract the slug from the response
-                alert('Login successful!');
-                navigate(`/${slug}/mealplan`); // Navigate to the correct URL with the slug
-            }
-        } catch (error) {
-            console.error('Error logging in', error);
-            alert('Login failed. Please check your credentials and try again.');
-        }
-    };
-
-    const handleRegister = () => {
-        navigate('/register');
-    };
+const LoginPage = ({ handleSubmit, loginMethods, handleLogin, handleRegister }) => {
 
     return (
         <LoginPageDiv>
@@ -79,4 +48,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
 
