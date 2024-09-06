@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const MealPlanDashBoardContainer = styled.div`
     justfiy-content: inbetween;
@@ -36,5 +37,19 @@ export const TileContainer = styled.div`
 `
 
 export const Tile = styled.div`
+    margin-top: 10px;
+    margin-bottom: 5px;
     width: 50%;
+`
+
+export const Icon = styled(FontAwesomeIcon)`
+`;
+
+export const TileValue = styled.h2`
+  font-size: 18px;
+  margin-left: 5px;
+`
+
+export const TileUnit = styled.p`
+  font-size: 14px;
 `

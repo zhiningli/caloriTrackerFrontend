@@ -1,6 +1,7 @@
 import React from 'react';
 import PieChartComponent from '../../../Reusable Components/Charts/PieChart/PieChartComponent';
-import { ChartContainer, MealPlanDashBoardContainer, SectionContainer, TileContainer, Tile} from './MealPlanDashboard.styles';
+import { ChartContainer, MealPlanDashBoardContainer, SectionContainer, TileContainer, Tile, Icon, TileValue, TileUnit} from './MealPlanDashboard.styles';
+import {faFire, faDrumstickBite, faBottleDroplet, faWheatAwn} from '@fortawesome/free-solid-svg-icons';
 
 const MealPlanDashboard = ({ proteins, fats, carbs, calories }) => {
 
@@ -24,20 +25,20 @@ const MealPlanDashboard = ({ proteins, fats, carbs, calories }) => {
                 </ChartContainer>
                 <TileContainer>
                         <Tile>
-                            <h2>{calories} kcal</h2>
-                            <p>Calories</p>
+                            <TileValue><Icon icon={faFire}/> {calories} kcal</TileValue>
+                            <TileUnit>Calories</TileUnit>
                         </Tile>
                         <Tile>
-                            <h2>{proteins} g</h2>
-                            <p>Proteins</p>
+                            <TileValue> <Icon icon={faDrumstickBite}/> {proteins} g</TileValue>
+                            <TileUnit>Proteins</TileUnit>
                         </Tile>
                         <Tile>
-                            <h2>{fats} g</h2>
-                            <p>Fats</p>
+                            <TileValue> <Icon icon={faBottleDroplet}/> {fats} g</TileValue>
+                            <TileUnit>Fats</TileUnit>
                         </Tile>
                         <Tile>
-                            <h2>{carbs} g</h2>
-                            <p>Carbs</p>
+                            <TileValue> <Icon icon={faWheatAwn}/>{carbs} g</TileValue>
+                            <TileUnit>Carbs</TileUnit>
                         </Tile>
                 </TileContainer>
             </SectionContainer>
