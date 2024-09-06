@@ -40,7 +40,7 @@ const LoginPageContainer = () => {
 
                 dispatch(setMeals(mealsResponse.data));
 
-                navigate(`/${slug}/mealplan`);
+                navigate(`/${slug}/dashboard`);
             }
         } catch (error) {
             console.error('Error logging in', error);

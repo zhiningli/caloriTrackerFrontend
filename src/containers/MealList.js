@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import MealPlanComponent from '../components/MainSections/MealPlan/MealPlanComponents/MealPlanComponent';
+import MealPlanComponent from '../components/MainSections/Dashboard/MealPlanComponent/MealPlanComponent';
 
 const MealList = () => {
     const meals = useSelector( (state) => state.meals.meals);

@@ -1,18 +1,21 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import MainHeader from '../MainHeader/MainHeader.jsx';
 import Header from '../Header/Header.jsx';
-// import SideBar from '../SideBar/SideBar.jsx';
+import SideBar from '../SideBar/SideBar.jsx';
 import { LayoutContainer, MainContainer, Wrapper } from './Layout.styles.jsx';
 
 function Layout() {
+    const { slug } = useParams();
+
     return (
         <LayoutContainer>
             <MainHeader />
             <Header />
             <Wrapper>
+                <SideBar slug={slug} />
                 <MainContainer>
-                    <Outlet /> {/* This is where the child routes will be rendered */}
+                    <Outlet /> 
                 </MainContainer>
             </Wrapper>
         </LayoutContainer>

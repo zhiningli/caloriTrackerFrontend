@@ -12,6 +12,7 @@ const PieChartComponent = ({ data, height, width, innerRadius = 50, outerRadius 
         data={data}
         cx={cx}
         cy={cy}
+        dataKey="value"
         innerRadius={innerRadius}
         outerRadius={outerRadius}
         paddingAngle={paddingAngle}
@@ -23,7 +24,6 @@ const PieChartComponent = ({ data, height, width, innerRadius = 50, outerRadius 
           />
         ))}
         
-        {/* Using Recharts' Label to display text at the center */}
         <Label 
           value={`${percentage.toFixed(0)}%`} 
           position="center" 
