@@ -18,6 +18,7 @@ export const SideBarContainer = styled.div.attrs(({ $isOpen }) => ({
 export const SideBarTabGroup = styled.div`
     margin-bottom: 10px;
     width:100%;
+    margin-top: 10px;
 `;
 
 export const SideBarTab = styled.div`
@@ -56,5 +57,7 @@ export const Icon = styled(FontAwesomeIcon)`
 
 export const SideBarTabTitle = styled.div`
     font-weight: bold;
-    margin: 15px 0;
+    margin-left: 10px;
+    font-size: 12px;
+    color: gray;
 `;

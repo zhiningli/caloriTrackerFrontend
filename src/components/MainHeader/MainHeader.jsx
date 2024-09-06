@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { MainHeaderContainer, MainHeaderTitleContainer, MainHeaderTypography } from './MainHeader.styles';
+import { MainHeaderContainer, MainHeaderTitleContainer} from './MainHeader.styles';
+import Logo from '../Media/Logo.png';
 
 function MainHeader() {
     const headerRef = useRef(null);
@@ -8,7 +9,7 @@ function MainHeader() {
     return (
         <MainHeaderContainer ref={headerRef}>
             <MainHeaderTitleContainer>
-                <MainHeaderTypography>Calorie Tracker</MainHeaderTypography>
+                <img src={Logo} alt="Calorie Tracker Logo" style={{ height: '66px' }} />
             </MainHeaderTitleContainer>
         </MainHeaderContainer>
     );

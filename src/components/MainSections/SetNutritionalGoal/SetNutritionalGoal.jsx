@@ -5,7 +5,7 @@ function SetNutritionalGoal() {
 
     return (
         <MainSectionContainer>
-        Hello
+            Hello
         </MainSectionContainer>
     );
 }
