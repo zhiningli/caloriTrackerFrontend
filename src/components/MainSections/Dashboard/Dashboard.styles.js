@@ -13,11 +13,11 @@ export const MealPlanSubContainer = styled.div`
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-bottom: 10px;
-    flex: 1; /* Make sure both sections take equal space */
-    overflow-y: auto; /* Add vertical scroll */
-    max-height: 500px; /* Adjust max height as needed */
+    flex: 1; 
+    overflow-y: auto;
+    max-height: 500px; 
     width: 45%;
-    padding: 10px; /* Add padding for content spacing */
+    padding: 10px;
 `;
 
 export const Divider = styled.hr`

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'; // No need for useParams anymore
+import { useNavigate, useLocation } from 'react-router-dom'; 
 import { SideBarContainer, SideBarTabGroup, SideBarTabTitle, SideBarTab, Icon } from './SideBar.style';
 import { faHouse, faBullseye, faPlus, faPenToSquare, faGear, faHeadset, faCircleInfo, faBars } from '@fortawesome/free-solid-svg-icons';
 
-function SideBar({ slug }) { // Accept slug as a prop
+function SideBar({ slug }) { 
     const [isOpen, setIsOpen] = useState(true);
     const navigate = useNavigate();
     const location = useLocation();
@@ -15,7 +15,7 @@ function SideBar({ slug }) { // Accept slug as a prop
             console.error('Slug is not available!');
         }
         
-        navigate(fullPath); // Ensure slug is part of the path
+        navigate(fullPath);
     
         setTimeout(() => {
             console.log('Current URL after navigation:', window.location.href);
@@ -23,7 +23,7 @@ function SideBar({ slug }) { // Accept slug as a prop
     };
 
     return (
-        <SideBarContainer isOpen={isOpen}>
+        <SideBarContainer $isOpen={isOpen}>
             <SideBarTab>
                 <button onClick={() => setIsOpen(!isOpen)}>
                     <Icon icon={faBars} />
@@ -33,7 +33,7 @@ function SideBar({ slug }) { // Accept slug as a prop
             {isOpen && (
                 <>
                     <SideBarTabGroup>
-                        <SideBarTab active={location.pathname === `/${slug}/dashboard`}>
+                        <SideBarTab $active={location.pathname === `/${slug}/dashboard`}>
                             <Icon icon={faHouse} />
                             <button onClick={() => handleNavigation('/dashboard')}>
                                 Meal Dashboard
@@ -43,11 +43,11 @@ function SideBar({ slug }) { // Accept slug as a prop
 
                     <SideBarTabGroup>
                         <SideBarTabTitle>Meal</SideBarTabTitle>
-                        <SideBarTab active={location.pathname === `/${slug}/nutritionalGoal`}>
+                        <SideBarTab $active={location.pathname === `/${slug}/nutritionalGoal`}>
                             <Icon icon={faBullseye} />
                             <button onClick={() => handleNavigation('/nutritionalGoal')}>Set Nutritional Goal</button>
                         </SideBarTab>
-                        <SideBarTab active={location.pathname === `/${slug}/editMeal`}>
+                        <SideBarTab $active={location.pathname === `/${slug}/editMeal`}>
                             <Icon icon={faPlus} />
                             <button onClick={() => handleNavigation('/editMeal')}>Create Meal</button>
                         </SideBarTab>
@@ -55,11 +55,11 @@ function SideBar({ slug }) { // Accept slug as a prop
 
                     <SideBarTabGroup>
                         <SideBarTabTitle>Personal</SideBarTabTitle>
-                        <SideBarTab active={location.pathname === `/${slug}/updateHealthData`}>
+                        <SideBarTab $active={location.pathname === `/${slug}/updateHealthData`}>
                             <Icon icon={faPenToSquare} />
                             <button onClick={() => handleNavigation('/updateHealthData')}>Update Health Metric</button>
                         </SideBarTab>
-                        <SideBarTab active={location.pathname === `/${slug}/accountSettings`}>
+                        <SideBarTab $active={location.pathname === `/${slug}/accountSettings`}>
                             <Icon icon={faGear} />
                             <button onClick={() => handleNavigation('/accountSettings')}>Account Setting</button>
                         </SideBarTab>
@@ -67,11 +67,11 @@ function SideBar({ slug }) { // Accept slug as a prop
 
                     <SideBarTabGroup>
                         <SideBarTabTitle>Help</SideBarTabTitle>
-                        <SideBarTab active={location.pathname === `/contact`}>
+                        <SideBarTab $active={location.pathname === `/contact`}>
                             <Icon icon={faHeadset} />
                             <button onClick={() => handleNavigation('/contact')}>Contact Us</button>
                         </SideBarTab>
-                        <SideBarTab active={location.pathname === `/about`}>
+                        <SideBarTab $active={location.pathname === `/about`}>
                             <Icon icon={faCircleInfo} />
                             <button onClick={() => handleNavigation('/about')}>About this App</button>
                         </SideBarTab>

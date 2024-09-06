@@ -10,7 +10,7 @@ export const MainHeaderContainer = styled.div`
 `;
 
 export const MainHeaderTitleContainer = styled.div`
-    height: 50px;
+    height: 66px;
 `;
 
 export const MainHeaderTypography = styled.span`

@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
 
 export const MainContainer = styled.div`
     flex-grow: 1;
-    padding: 20px;
     background-color: ${props => props.theme.colorSoftWhite}; /* Using theme property */
     display: flex;
     flex-direction: column;
