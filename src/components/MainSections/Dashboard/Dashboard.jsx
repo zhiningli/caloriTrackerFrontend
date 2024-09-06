@@ -1,12 +1,13 @@
 import React from 'react';
-import { DashboardContainer, MealPlanSubContainer, MealPlanContainer } from '../MainSection.sytle';
+import { MainSectionContainer} from '../MainSection.sytle';
+import { MealPlanSubContainer, MealPlanContainer } from './Dashboard.styles';
 import MealList from '../../../containers/MealList';
 import NutritionDashboardContainer from '../../../containers/NutritionDashBoardContainer';
 
 function Dashboard() {
 
     return (
-        <DashboardContainer>
+        <MainSectionContainer>
             <NutritionDashboardContainer/>
             <MealPlanContainer>
                 <MealPlanSubContainer>
@@ -16,7 +17,7 @@ function Dashboard() {
                     <MealList /> 
                 </MealPlanSubContainer>
             </MealPlanContainer>
-        </DashboardContainer>
+        </MainSectionContainer>
     );
 }
 

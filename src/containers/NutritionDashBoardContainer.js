@@ -20,8 +20,6 @@ const NutritionDashboardContainer = () => {
         carbs: 0
     });
 
-    console.log(aggregateValues)
-
     return (
         <MealPlanDashboard 
             proteins={aggregateValues.proteins} 

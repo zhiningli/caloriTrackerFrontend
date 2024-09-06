@@ -1,10 +1,12 @@
 import React from 'react';
-
+import { MainSectionContainer } from '../MainSection.sytle';
 
 function AccountSettings() {
 
     return (
-        <div/>
+        <MainSectionContainer>
+        Hello
+        </MainSectionContainer>
     );
 }
 

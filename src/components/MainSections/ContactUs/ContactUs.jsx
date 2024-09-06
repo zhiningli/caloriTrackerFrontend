@@ -1,10 +1,13 @@
 import React from 'react';
+import { MainSectionContainer } from '../MainSection.sytle';
 
 
 function ContactUs() {
 
     return (
-        <div/>
+        <MainSectionContainer>
+        Hello
+        </MainSectionContainer>
     );
 }
 

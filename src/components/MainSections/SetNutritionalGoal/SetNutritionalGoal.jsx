@@ -1,9 +1,12 @@
 import React from 'react';
+import { MainSectionContainer } from '../MainSection.sytle';
 
 function SetNutritionalGoal() {
 
     return (
-        <div/>
+        <MainSectionContainer>
+        Hello
+        </MainSectionContainer>
     );
 }
 
