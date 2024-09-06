@@ -7,7 +7,7 @@ export const MainSectionContainer = styled.div`
     justify-content: space-between;
     height: 100%;
     padding: 10px;
-    background-color: ${props => props.theme.colorFurRed};
+    background-color: ${props => props.theme.colorIvory};
 `;
 
 export const MealSectionContainer = styled.div`
