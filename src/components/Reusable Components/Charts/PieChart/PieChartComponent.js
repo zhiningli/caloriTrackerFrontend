@@ -5,6 +5,8 @@ const PieChartComponent = ({ data, height, width, innerRadius = 50, outerRadius 
   const COLORS = ['#A5381F', '#4B2C20', '#B34729'];
 
   const percentage = (data[0].value / (data[0].value + data[1].value)) * 100;
+  
+  console.log('Pie chart is renderinging?', data);
 
   return (
     <PieChart width={width} height={height}>
@@ -12,6 +14,7 @@ const PieChartComponent = ({ data, height, width, innerRadius = 50, outerRadius 
         data={data}
         cx={cx}
         cy={cy}
+        dataKey="value"
         innerRadius={innerRadius}
         outerRadius={outerRadius}
         paddingAngle={paddingAngle}
@@ -23,7 +26,6 @@ const PieChartComponent = ({ data, height, width, innerRadius = 50, outerRadius 
           />
         ))}
         
-        {/* Using Recharts' Label to display text at the center */}
         <Label 
           value={`${percentage.toFixed(0)}%`} 
           position="center" 

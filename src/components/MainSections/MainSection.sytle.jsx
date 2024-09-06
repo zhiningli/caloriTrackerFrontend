@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MainSectionContainer = styled.div`
+export const DashboardContainer = styled.div`
     width: 98%;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,15 @@ export const MainSectionContainer = styled.div`
     background-color: ${props => props.theme.colorIvory};
 `;
 
-export const MealSectionContainer = styled.div`
+export const MealPlanContainer = styled.div`
+    background-color: ${props => props.theme.colorIvory};
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
+export const MealPlanSubContainer = styled.div`
     background-color: ${props => props.theme.colorIvory};
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -18,6 +26,7 @@ export const MealSectionContainer = styled.div`
     flex: 1; /* Make sure both sections take equal space */
     overflow-y: auto; /* Add vertical scroll */
     max-height: 500px; /* Adjust max height as needed */
+    width: 45%;
     padding: 10px; /* Add padding for content spacing */
 `;
 

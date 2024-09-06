@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import MealPlanDashboard from '../components/MainSections/MealPlan/MealPlanDashboard/MealPlanDashboard';
+import MealPlanDashboard from '../components/MainSections/Dashboard/NutritionDashboard/MealPlanDashboard';
 
-const MealPlanDashboardContainer = () => {
+const NutritionDashboardContainer = () => {
 
     const meals = useSelector( (state) => state.meals.meals);
 
@@ -32,4 +32,4 @@ const MealPlanDashboardContainer = () => {
     )
 }
 
-export default MealPlanDashboardContainer;
+export default NutritionDashboardContainer;
