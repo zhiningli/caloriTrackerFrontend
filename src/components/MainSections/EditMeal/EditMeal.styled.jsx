@@ -17,6 +17,6 @@ export const CreateMealSection = styled.div`
 
 export const CreateMealSubSection = styled.div`
     display: flex;
-    width: 33%;
+    width: 50%;
     background-color: ${props => props.theme.colorFurRed};
 `
