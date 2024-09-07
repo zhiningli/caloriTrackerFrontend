@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useForm, FormProvider } from 'react-hook-form';
 import Input from '../../Reusable Components/Inputs/StandardInput/StandardInput';
-import { LoginPageDiv, LoginPageButton, LoginPageForm } from '../AccessPage.styles';
+import { LoginPageDiv, LoginPageForm } from '../AccessPage.styles';
 import { generateSlug, generateIndexedSlug } from './RegistrationMethods/Slug';
+import Button from '../../Reusable Components/Button/Button';
 
 const RegistrationPage = () => {
     const [passwordMatchError, setPasswordMatchError] = useState(null);
@@ -116,12 +117,8 @@ const RegistrationPage = () => {
                         }}
                         error={passwordMatchError}
                     />
-                    <LoginPageButton type="submit">
-                        Register
-                    </LoginPageButton>
-                    <LoginPageButton type="button" onClick={handleLogin}>
-                        Login
-                    </LoginPageButton>
+                    <Button type="submit" text='Register'/>
+                    <Button type="button" onClick={handleLogin} text='Login'/>
                 </LoginPageForm>
             </FormProvider>
         </LoginPageDiv>

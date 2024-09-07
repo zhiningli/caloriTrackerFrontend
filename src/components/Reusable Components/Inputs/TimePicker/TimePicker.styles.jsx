@@ -28,7 +28,7 @@ export const ErrorMessage = styled.span`
     color: red;
     font-size: 12px;
     position: absolute;
-    top: 100%;
+    top: 90%;
     left: 0;
     margin-top: 5px;
 `;

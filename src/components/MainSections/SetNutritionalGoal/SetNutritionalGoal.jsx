@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainSectionContainer } from '../MainSection.sytle';
+import { MainSectionContainer } from '../MainSection.style';
 
 function SetNutritionalGoal() {
 

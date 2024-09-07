@@ -5,18 +5,17 @@ import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 const IconLibrary = {
     'edit': faEdit,
     'add': faPlus,
-    'delete': faTrash 
+    'delete': faTrash, 
 }
 
-export const ButtonIcon = ({ iconName , onClick }) => {
-
-    const SelectedIcon = IconLibrary[iconName];
+export const IconButton = ({ iconName , onClick, disabled = false }) => {
+        const SelectedIcon = IconLibrary[iconName]
 
     return (
-        <TransparentButton type="button" onClick={onClick}>
+        <TransparentButton type="button" onClick={onClick} disabled={disabled}>
             <Icon icon={SelectedIcon} />
         </TransparentButton>
         )
 }
 
-export default ButtonIcon;
+export default IconButton;

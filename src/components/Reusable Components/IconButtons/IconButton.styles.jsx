@@ -12,6 +12,11 @@ export const TransparentButton = styled.button`
     &:hover {
         color: ${props => props.theme.colorPandaBrown};
     }
+
+    &:disabled {
+        color: transparent;
+        cursor: default;
+    }
 `;
 
 export const Icon = styled(FontAwesomeIcon)`

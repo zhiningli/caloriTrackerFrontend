@@ -7,8 +7,7 @@ export const SideBarContainer = styled.div.attrs(({ $isOpen }) => ({
     padding: 5px;
     background-color: ${props => props.theme.colorIvory};
     border-right: 1px solid #ddd;
-    height: 100vh;
-    display: flex;
+    height: 100%;
     flex-direction: column;
     width: ${({ $isOpen }) => ($isOpen ? '300px' : '50px')}; // Use $isOpen here
     overflow: hidden;

@@ -18,9 +18,7 @@ export const SelectField = styled.select`
     border: 1px solid ${props => props.theme.colorFurRed};
     border-radius: 5px;
     width: 100%;
-    appearance: none; /* Customize the select appearance */
     background-color: white;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 4 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23333' d='M2 0L0 2h4z'/%3E%3C/svg%3E"); 
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 12px;
@@ -30,7 +28,7 @@ export const ErrorMessage = styled.span`
     color: red;
     font-size: 12px;
     position: absolute;
-    top: 100%;
+    top: 90%;
     left: 0;
     margin-top: 5px;
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainSectionContainer } from '../MainSection.sytle';
+import { MainSectionContainer } from '../MainSection.style';
 import { CreateMealHeader, CreateMealSection, CreateMealSubSection } from './EditMeal.styled';
 import CreateMealForm from './CreateMealForm/CreateMealForm';
 
