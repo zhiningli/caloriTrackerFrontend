@@ -1,6 +1,6 @@
 import React from 'react';
 import PieChartComponent from '../../../Reusable Components/Charts/PieChart/PieChartComponent';
-import { ChartContainer, MealPlanDashBoardContainer, GadgetContainer, TileContainer, Tile, Icon, TileValue, TileTitle, TileUnit} from './MealPlanDashboard.styles';
+import { NutritionDashboardTitle, DashboardGadgetBlock, ChartContainer, MealPlanDashBoardContainer, GadgetContainer, TileContainer, TileRow, Icon, TileValue, TileTitle, TileUnit} from './MealPlanDashboard.styles';
 import {faFire, faDrumstickBite, faBottleDroplet, faWheatAwn} from '@fortawesome/free-solid-svg-icons';
 
 const MealPlanDashboard = ({ proteins, fats, carbs, calories }) => {
@@ -37,13 +37,18 @@ const MealPlanDashboard = ({ proteins, fats, carbs, calories }) => {
 
     return (
         <MealPlanDashBoardContainer>
+            <NutritionDashboardTitle>Your Daily Nutritional Goal</NutritionDashboardTitle>
+            <DashboardGadgetBlock>
             <GadgetContainer>
                 <TileContainer>
-                    <TileTitle>Calories <Icon icon={faFire}/></TileTitle>
-                    <Tile>
-                        <TileValue> {calories} </TileValue>
+                    <Icon icon={faFire} />
+                    <TileRow>
+                        <TileTitle>Calories</TileTitle>
+                    </TileRow>
+                    <TileRow>
+                        <TileValue>{calories}</TileValue>
                         <TileUnit>kcal</TileUnit>
-                    </Tile>
+                    </TileRow>
                 </TileContainer>
                 <ChartContainer>
                     <PieChartComponent data={calorieData} width={120} height={120} />
@@ -52,11 +57,16 @@ const MealPlanDashboard = ({ proteins, fats, carbs, calories }) => {
 
             <GadgetContainer>
                 <TileContainer>
-                    <TileTitle>Proteins <Icon icon={faDrumstickBite}/> </TileTitle>
-                    <Tile>
-                        <TileValue>  {proteins} </TileValue>
+                    <Icon icon={faDrumstickBite} />
+                    <TileRow>
+                        <TileTitle>Proteins</TileTitle>
+                    </TileRow>
+
+                    <TileRow>
+                        <TileValue>{proteins}</TileValue>
                         <TileUnit>grams</TileUnit>
-                    </Tile>
+                    </TileRow>
+
                 </TileContainer>
                 <ChartContainer>
                     <PieChartComponent data={proteinData} width={120} height={120} />
@@ -65,11 +75,16 @@ const MealPlanDashboard = ({ proteins, fats, carbs, calories }) => {
 
             <GadgetContainer>
                 <TileContainer>
-                    <TileTitle>Fats <Icon icon={faBottleDroplet}/> </TileTitle>
-                    <Tile>
-                        <TileValue>  {fats} </TileValue>
+                    <Icon icon={faBottleDroplet} />
+                    <TileRow>
+                        <TileTitle>Fats</TileTitle>
+                    </TileRow>
+
+                    <TileRow>
+                        <TileValue>{fats}</TileValue>
                         <TileUnit>grams</TileUnit>
-                    </Tile>
+                    </TileRow>
+
                 </TileContainer>
                 <ChartContainer>
                     <PieChartComponent data={fatsData} width={120} height={120} />
@@ -78,16 +93,20 @@ const MealPlanDashboard = ({ proteins, fats, carbs, calories }) => {
 
             <GadgetContainer>
                 <TileContainer>
-                    <TileTitle>Carbs <Icon icon={faWheatAwn}/> </TileTitle>
-                    <Tile>
-                        <TileValue> {carbs} </TileValue>
+                    <Icon icon={faWheatAwn} />
+                    <TileRow>
+                        <TileTitle>Carbs</TileTitle>
+                    </TileRow>
+                    <TileRow>
+                        <TileValue>{carbs}</TileValue>
                         <TileUnit>grams</TileUnit>
-                    </Tile>
+                    </TileRow>
                 </TileContainer>
                 <ChartContainer>
                     <PieChartComponent data={carbsData} width={120} height={120} />
                 </ChartContainer>
             </GadgetContainer>
+            </DashboardGadgetBlock>
 
         </MealPlanDashBoardContainer>
     );

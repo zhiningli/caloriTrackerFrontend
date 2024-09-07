@@ -2,11 +2,23 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const MealPlanDashBoardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const NutritionDashboardTitle = styled.h2`
+    font-size: 20px;
+    font-weight: bold;
+    text-align: Left;
+    margin-left: 20px;
+    color: ${props => props.theme.colorPandaBrown};
+`
+
+export const DashboardGadgetBlock = styled.div`
     justify-content: space-between;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 20px;
     padding: 10px;
     height: 150px; 
 ` 
@@ -34,22 +46,31 @@ export const ChartContainer = styled.div`
 
 export const TileContainer = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 50%;
-    padding-left: 10px;
+    flex-direction: column;  /* Stack items vertically */
+    align-items: flex-start; /* Left-align everything */
+    margin-top: 10px;
 `
 
-export const Tile = styled.div`
+export const TileRow = styled.div`
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    margin-top: 10px; 
+    justify-content: flex-start;
 `
 
 export const Icon = styled(FontAwesomeIcon)`
-  margin-left: 5px;
+    font-size: 28px;
+    color: ${props => props.theme.colorFurRed};
+    margin-right: 10px;
+    margin-bottom: 6px;
 `;
+
+export const TileTitle = styled.p`
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 5px;
+`
 
 export const TileValue = styled.h2`
   font-size: 24px;
@@ -57,13 +78,9 @@ export const TileValue = styled.h2`
   margin-right: 5px; 
 `
 
-export const TileTitle = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-`
-
 export const TileUnit = styled.p`
   font-size: 14px; 
   color: gray;
   margin-bottom: 0;
 `
+
