@@ -8,3 +8,8 @@ export const Row = styled.div`
     margin-bottom: 10px;
     gap:20px;
 `
+
+export const FoodSection = styled.div`
+    overflow-y: auto;
+    max-height: 230px;
+`
