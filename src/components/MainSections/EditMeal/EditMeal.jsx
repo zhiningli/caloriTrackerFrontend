@@ -16,7 +16,6 @@ function EditMeal() {
                     <CreateMealForm/>
                 </CreateMealSubSection>
                 <CreateMealSubSection>This section display the current meal plan for today</CreateMealSubSection>
-                <CreateMealSubSection>This section provide real time update on how is the nutritions planned reached goal?</CreateMealSubSection>
             </CreateMealSection>
         </MainSectionContainer>
     );

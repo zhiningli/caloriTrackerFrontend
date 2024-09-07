@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormProvider } from 'react-hook-form';
-import Input from '../../Inputs/Input';
+import Input from '../../Reusable Components/Inputs/StandardInput/StandardInput';
 import { LoginPageDiv, LoginPageButton, LoginPageForm } from '../AccessPage.styles';
 import LoadingScreen from '../../LoadingComponent/LoadingScreen';
 

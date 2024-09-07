@@ -1,6 +1,9 @@
 import React from 'react';
 import { useForm, FormProvider, useFieldArray } from 'react-hook-form';
-import Input from '../../../Inputs/Input';
+import Input from '../../../Reusable Components/Inputs/StandardInput/StandardInput';
+import Select from '../../../Reusable Components/Inputs/Select/Select';
+import NumberInput from '../../../Reusable Components/Inputs/NumberInput/NumberInput';
+import { FoodRow } from './CreateMealForm.styles';
 
 
 const FoodCategory = [
@@ -15,7 +18,6 @@ const FoodCategory = [
 
 function CreateMealForm(){
 
-
     const MealForm = useForm({
         defaultValues: {
             'name': '',
@@ -24,7 +26,7 @@ function CreateMealForm(){
             },
         });
         
-    const {control, handleSubmit, register} = MealForm;
+    const {control, handleSubmit} = MealForm;
 
     const { fields, append, remove} = useFieldArray({
         control,
@@ -36,7 +38,6 @@ function CreateMealForm(){
         alert(data);
     }
 
-
     return (
         <FormProvider {...MealForm}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -47,33 +48,34 @@ function CreateMealForm(){
                     validationRules = {{ minLength: { value: 3, message: "Name must be at least 3 characters" } }}
                 />
 
-                <label>Category</label>
-                <select {...register("category", { required: true })}>
-                    {FoodCategory.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
+                <Select
+                    name="category"
+                    label="Category"
+                    isRequired = {true}
+                    options = {FoodCategory}
+                />
+                
+
 
                 <div>
                     <h3>Food Items</h3>
                     {fields.map((item, index) => (
                         <div key={item.id} style={{ marginBottom: '10px' }}>
+                            <FoodRow>
                             <Input
                                 name={`foodNames[${index}].name`}
-                                label={`Food Name #${index + 1}`}
+                                label={`Food Name`}
                                 isRequired={true}
                             />
-
-                            <Input
+                            <NumberInput
                                 name={`foodNames[${index}].quantity`}
                                 label="Quantity"
-                                type="number"
                                 isRequired={true}
                                 validationRules={{ min: { value: 1, message: "Quantity must be at least 1" } }}
                             />
                             <button type="button" onClick={() => remove(index)}>Delete</button>
+                            </FoodRow>
+
                         </div>
                     ))}
                     <button type="button" onClick={() => append({ name: '', quantity: 0 })}>

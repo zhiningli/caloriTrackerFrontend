@@ -1,22 +1,23 @@
-import React, {forwardRef } from 'react';
-import { InputLabel, InputField, ErrorMessage, InputWrapper } from './Input.styles';
-import {useFormContext} from 'react-hook-form';
+import React, { forwardRef } from 'react';
+import { NumberInputLabel, NumberInputField, ErrorMessage, NumberInputWrapper } from './NumberInput.styles';
+import { useFormContext } from 'react-hook-form';
 
-const Input = forwardRef(({ 
+const NumberInput = forwardRef(({ 
     name, 
     label, 
     isRequired, 
-    validationRules, 
+    validationRules,  
     ...inputProps 
 }, ref) => {
     const { register, formState: { errors } } = useFormContext();
 
     return (
-        <InputWrapper>
-            <InputLabel>
+        <NumberInputWrapper>
+            <NumberInputLabel>
                 {label} {isRequired && <span style={{ color: 'red' }}>*</span>}
-            </InputLabel>
-            <InputField
+            </NumberInputLabel>
+            <NumberInputField
+                type="number"
                 {...register(name, {
                     required: isRequired ? 'This field is required' : false,
                     ...validationRules,
@@ -24,8 +25,8 @@ const Input = forwardRef(({
                 {...inputProps}
             />
             {errors[name] && <ErrorMessage>{errors[name].message}</ErrorMessage>}
-        </InputWrapper>
+        </NumberInputWrapper>
     );
 });
 
-export default Input;
+export default NumberInput;

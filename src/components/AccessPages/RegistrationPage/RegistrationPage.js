@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useForm, FormProvider } from 'react-hook-form';
-import Input from '../../Inputs/Input';
+import Input from '../../Reusable Components/Inputs/StandardInput/StandardInput';
 import { LoginPageDiv, LoginPageButton, LoginPageForm } from '../AccessPage.styles';
 import { generateSlug, generateIndexedSlug } from './RegistrationMethods/Slug';
 
