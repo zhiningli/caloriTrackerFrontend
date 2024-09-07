@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoginPageDiv, LoginPageButton } from '../AccessPage.styles';
+import { LoginPageDiv } from '../AccessPage.styles';
+import Button from '../../Reusable Components/Button/Button';
 
 const HomePage = () => {
 
@@ -21,15 +22,9 @@ const HomePage = () => {
 
     return (
         <LoginPageDiv>
-            <LoginPageButton type="button" onClick={jumpToLogin}>
-                Log In
-            </LoginPageButton>
-            <LoginPageButton type="button" onClick={jumapToRegister}>
-                Register
-            </LoginPageButton>
-            <LoginPageButton type="button" onClick={LogInAsGuest}>
-                Log In as Guest
-            </LoginPageButton>
+            <Button type="button" onClick={jumpToLogin} text='Log In'/>
+            <Button type="button" onClick={jumapToRegister} text='Register'/>
+            <Button type="button" onClick={LogInAsGuest} text='Guest Log in'/>
         </LoginPageDiv>
     );
 };

@@ -16,7 +16,7 @@ export const CreateMealSection = styled.div`
 `
 
 export const CreateMealSubSection = styled.div`
-    display: flex;
+    padding: 20px;
     width: 50%;
-    background-color: ${props => props.theme.colorFurRed};
+    background-color: ${props => props.theme.colorIvory};
 `

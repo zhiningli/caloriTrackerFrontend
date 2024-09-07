@@ -1,33 +1,27 @@
 import styled from 'styled-components';
 
-export const NumberInputWrapper = styled.div`
+export const TimePickerWrapper = styled.div`
+    flex: 1; /* This allows the TimePicker to take equal space */
     position: relative;
     margin-bottom: 25px;
 `;
 
-export const NumberInputLabel = styled.label`
+export const TimePickerLabel = styled.label`
     color: ${props => props.theme.colorPandaBrown};
     font-weight: bold;
     margin-bottom: 5px;
     display: block;
 `;
 
-export const NumberInputField = styled.input`
+export const TimePickerField = styled.select`
     padding: 10px;
     font-size: 16px;
     border: 1px solid ${props => props.theme.colorFurRed};
     border-radius: 5px;
     width: 100%;
-
-    /* Optional: Style the arrows */
-    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    
-    & {
-        -moz-appearance: textfield; /* Hides the arrows in Firefox */
-    }
+    background-color: white; 
+    background-position: right 10px center;
+    background-size: 12px;
 `;
 
 export const ErrorMessage = styled.span`

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainSectionContainer} from '../MainSection.sytle';
+import { MainSectionContainer} from '../MainSection.style';
 import { MealPlanSubContainer, MealPlanContainer, DashboardTitle } from './Dashboard.styles';
 import MealList from '../../../containers/MealList';
 import NutritionDashboardContainer from '../../../containers/NutritionDashBoardContainer';

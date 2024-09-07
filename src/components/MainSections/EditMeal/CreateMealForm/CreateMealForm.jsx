@@ -3,7 +3,11 @@ import { useForm, FormProvider, useFieldArray } from 'react-hook-form';
 import Input from '../../../Reusable Components/Inputs/StandardInput/StandardInput';
 import Select from '../../../Reusable Components/Inputs/Select/Select';
 import NumberInput from '../../../Reusable Components/Inputs/NumberInput/NumberInput';
-import { FoodRow } from './CreateMealForm.styles';
+import { MealRow, MultiColRow, FoodRow, FoodSection, MealFormContainer } from './CreateMealForm.styles';
+import  IconButton  from '../../../Reusable Components/IconButtons/IconButton';
+import TimePicker from '../../../Reusable Components/Inputs/TimePicker/TimePicker';
+import DatePicker from '../../../Reusable Components/Inputs/DatePicker/DatePicker';
+import Button from '../../../Reusable Components/Button/Button';
 
 
 const FoodCategory = [
@@ -16,15 +20,17 @@ const FoodCategory = [
     { value: 'OTHER', label: 'Other' }
   ];
 
-function CreateMealForm(){
+const CreateMealForm = () =>{
 
     const MealForm = useForm({
         defaultValues: {
             'name': '',
             'category': 'COMPOSITE',
+            'consumeDate': '',
+            'comsumeTime': '',
             'foodNames': [{'name': ' ', quantity: 0}]
-            },
-        });
+        },
+    });
         
     const {control, handleSubmit} = MealForm;
 
@@ -33,61 +39,93 @@ function CreateMealForm(){
         name: 'foodNames'
     });
 
+    const onAddFood = () => {
+        append({ name: '', quantity: 0 });
+    };
+
+    const onDeleteFood = (index) => {
+            remove(index);
+    };
+    
+    const onAddMeal = () => {
+        alert('AddMeal Clicked!');
+    };
+
+    const onRemoveMeal = () => {
+        alert('Remove Clicked!');
+    };
+    
     const onSubmit = (data) =>{
         console.log(data);
         alert(data);
     }
 
     return (
-        <FormProvider {...MealForm}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Input
-                    name="name"
-                    label="Meal Name"
-                    isRequired = {true}
-                    validationRules = {{ minLength: { value: 3, message: "Name must be at least 3 characters" } }}
-                />
+        <MealFormContainer>
+            <FormProvider {...MealForm}>
+                <h3 style={{marginBottom: '10px'}}>Meal Editor </h3>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <MealRow>
+                        <Input
+                            name="name"
+                            label="Meal Name"
+                            isRequired = {true}
+                            validationRules = {{ minLength: { value: 3, message: "Name must be at least 3 characters" } }}
+                        />
+                    </MealRow>
+                    <MealRow>
+                        <Select
+                            name="category"
+                            label="Category"
+                            isRequired = {true}
+                            options = {FoodCategory}
+                        />
+                    </MealRow>
+                    <MultiColRow>
+                        <DatePicker
+                            name = 'consumeDate'
+                            label = 'Target Consume Date'
+                            isRequired = {true}
+                        />
 
-                <Select
-                    name="category"
-                    label="Category"
-                    isRequired = {true}
-                    options = {FoodCategory}
-                />
-                
+                        <TimePicker
+                            name = 'consumeTime'
+                            label = 'Target Consume Time'
+                            isRequired = {true}
+                        />
+                    </MultiColRow>
 
+                    <h3>Food Items  <IconButton iconName="add" onClick={onAddFood}/> </h3>
+                    <MealRow>
+                    <FoodSection>
+                        {fields.map((item, index) => (
+                            <div key={item.id} style={{ marginBottom: '10px' }}>
+                                <FoodRow>
+                                    <Input
+                                    name={`foodNames[${index}].name`}
+                                    label={`Food Name`}
+                                    isRequired={true}
+                                    />
+                                    <NumberInput
+                                        name={`foodNames[${index}].quantity`}
+                                        label="Weight (in grams)"
+                                        isRequired={true}
+                                        validationRules={{ min: { value: 1, message: "Weight must be at least 1" } }}
+                                    />
+                                    {<IconButton iconName="delete" onClick={() => onDeleteFood(index)} disabled={index === 0}/> }
+                                </FoodRow>
+                            </div>
+                        ))}
+                    </FoodSection>
+                    </MealRow>
+                  
+                    <Button type="button" text='Add Meal' onClick={onAddMeal}/>
+                    <Button type="button" text='Remove Meal' onClick={onRemoveMeal}/>
+                    <Button type="submit" text='Save Meal'/>         
 
-                <div>
-                    <h3>Food Items</h3>
-                    {fields.map((item, index) => (
-                        <div key={item.id} style={{ marginBottom: '10px' }}>
-                            <FoodRow>
-                            <Input
-                                name={`foodNames[${index}].name`}
-                                label={`Food Name`}
-                                isRequired={true}
-                            />
-                            <NumberInput
-                                name={`foodNames[${index}].quantity`}
-                                label="Quantity"
-                                isRequired={true}
-                                validationRules={{ min: { value: 1, message: "Quantity must be at least 1" } }}
-                            />
-                            <button type="button" onClick={() => remove(index)}>Delete</button>
-                            </FoodRow>
-
-                        </div>
-                    ))}
-                    <button type="button" onClick={() => append({ name: '', quantity: 0 })}>
-                        Add Food Item
-                    </button>
-                </div>
-
-                <button type="submit">Submit Meal</button>
-            </form>
-
-        </FormProvider>
-
+                </form>
+            </FormProvider>
+        </MealFormContainer>
     )
 }
 
