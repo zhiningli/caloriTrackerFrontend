@@ -3,9 +3,10 @@ import { useForm, FormProvider, useFieldArray } from 'react-hook-form';
 import Input from '../../../Reusable Components/Inputs/StandardInput/StandardInput';
 import Select from '../../../Reusable Components/Inputs/Select/Select';
 import NumberInput from '../../../Reusable Components/Inputs/NumberInput/NumberInput';
-import { FoodRow } from './CreateMealForm.styles';
+import { Row } from './CreateMealForm.styles';
 import  IconButton  from '../../../Reusable Components/IconButtons/IconButton';
 import TimePicker from '../../../Reusable Components/Inputs/TimePicker/TimePicker';
+import DatePicker from '../../../Reusable Components/Inputs/DatePicker/DatePicker';
 
 
 const FoodCategory = [
@@ -66,42 +67,42 @@ function CreateMealForm(){
                     isRequired = {true}
                     options = {FoodCategory}
                 />
-                
-                <TimePicker
-                    name = 'consumeTime'
-                    label = 'Target Consume Time'
-                    isRequired = {true}
-                />
+                <Row>
+                    <DatePicker
+                        name = 'consumeDate'
+                        label = 'Target Consume Date'
+                        isRequired = {true}
+                    />
 
-                <div>
-                    <h3>Food Items</h3>
-                    {fields.map((item, index) => (
-                        <div key={item.id} style={{ marginBottom: '10px' }}>
-                            <FoodRow>
-                                <Input
-                                name={`foodNames[${index}].name`}
-                                label={`Food Name`}
+                    <TimePicker
+                        name = 'consumeTime'
+                        label = 'Target Consume Time'
+                        isRequired = {true}
+                    />
+                </Row>
+                <h3>Food Items  <IconButton iconName="add" onClick={onAddFood}/> </h3>
+                {fields.map((item, index) => (
+                    <div key={item.id} style={{ marginBottom: '10px' }}>
+                        <Row>
+                            <Input
+                            name={`foodNames[${index}].name`}
+                            label={`Food Name`}
+                            isRequired={true}
+                            />
+                            <NumberInput
+                                name={`foodNames[${index}].quantity`}
+                                label="Quantity"
                                 isRequired={true}
-                                />
-                                <NumberInput
-                                    name={`foodNames[${index}].quantity`}
-                                    label="Quantity"
-                                    isRequired={true}
-                                    validationRules={{ min: { value: 1, message: "Quantity must be at least 1" } }}
-                                />
-                                <IconButton iconName="delete" onClick={() => onDeleteFood(index)} />
-                            </FoodRow>
+                                validationRules={{ min: { value: 1, message: "Quantity must be at least 1" } }}
+                            />
+                            <IconButton iconName="delete" onClick={() => onDeleteFood(index)} />
+                        </Row>
 
-                        </div>
-                    ))}
-                    <IconButton iconName="add" onClick={onAddFood}/>
-                </div>
-
+                    </div>
+                ))}
                 <button type="submit">Submit Meal</button>
             </form>
-
         </FormProvider>
-
     )
 }
 

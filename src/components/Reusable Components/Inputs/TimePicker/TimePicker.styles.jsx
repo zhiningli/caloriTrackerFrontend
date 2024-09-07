@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const TimePickerWrapper = styled.div`
+    flex: 1; /* This allows the TimePicker to take equal space */
     position: relative;
     margin-bottom: 25px;
 `;

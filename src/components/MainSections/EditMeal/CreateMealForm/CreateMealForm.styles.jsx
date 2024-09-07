@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export const FoodRow = styled.div`
+export const Row = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
     margin-bottom: 10px;
+    gap:20px;
 `
