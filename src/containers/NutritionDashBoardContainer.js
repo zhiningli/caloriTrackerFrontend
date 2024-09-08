@@ -4,14 +4,14 @@ import MealPlanDashboard from '../components/MainSections/Dashboard/NutritionDas
 
 const NutritionDashboardContainer = () => {
 
-    const meals = useSelector( (state) => state.meals.meals);
+    const meals = useSelector( (state) => state.meals.currentMeals);
+    console.log(meals);
 
     const aggregateValues = meals.reduce((acc, meal) => {
-        let mealDto = meal.mealDto;
-        acc.proteins += mealDto.proteinsPerGram * mealDto.weight;
-        acc.fats += mealDto.fatsPerGram * mealDto.weight;
-        acc.carbs += mealDto.carbsPerGram * mealDto.weight ;
-        acc.calories += mealDto.caloriesPerGram * mealDto.weight;
+        acc.proteins += meal.proteinsPerGram * meal.weight;
+        acc.fats += meal.fatsPerGram * meal.weight;
+        acc.carbs += meal.carbsPerGram * meal.weight ;
+        acc.calories += meal.caloriesPerGram * meal.weight;
         return acc;
     },{
         calories: 0,

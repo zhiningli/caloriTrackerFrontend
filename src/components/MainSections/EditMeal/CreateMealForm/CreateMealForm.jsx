@@ -8,19 +8,32 @@ import  IconButton  from '../../../Reusable Components/IconButtons/IconButton';
 import TimePicker from '../../../Reusable Components/Inputs/TimePicker/TimePicker';
 import DatePicker from '../../../Reusable Components/Inputs/DatePicker/DatePicker';
 import Button from '../../../Reusable Components/Button/Button';
+import { formatDate, getNow } from '../../../../utils/dateUtil';
+import { addMeal, clearMeal, setMeals} from '../../../../redux/mealSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 
 const FoodCategory = [
-    { value: 'FRUIT', label: 'Fruit' },
-    { value: 'VEGETABLE', label: 'Vegetable' },
-    { value: 'PROTEIN', label: 'Protein' },
-    { value: 'DAIRY', label: 'Dairy' },
-    { value: 'GRAIN', label: 'Grain' },
-    { value: 'COMPOSITE', label: 'Composite' }, 
-    { value: 'OTHER', label: 'Other' }
+    { value: 'BREAKFAST', label: 'Breakfast' },
+    { value: 'BRUNCH', label: 'Brunch' },
+    { value: 'LUNCH', label: 'Lunch' },
+    { value: 'DRINK', label: 'Drink' },
+    { value: 'SNACK', label: 'Snack' },
+    { value: 'DINNER', label: 'Dinner' }, 
+    { value: 'OTHER', label: 'Other' },
+    { VALUE: 'SUPPER', label: 'Supper' }
   ];
 
 const CreateMealForm = () =>{
+
+    
+    const dispatch = useDispatch();
+
+    const slug = useSelector((state) => state.user.slug);
+    const currentMeals = useSelector((state) => state.meals.currentMeals);
+    const newMeals = useSelector((state) => state.meals.newMeals);
+    const token = useSelector((state) => state.user.token);
 
     const MealForm = useForm({
         defaultValues: {
@@ -47,24 +60,62 @@ const CreateMealForm = () =>{
             remove(index);
     };
     
-    const onAddMeal = () => {
-        alert('AddMeal Clicked!');
+    const onAddMeal = (data) => {
+
+        const foodNamesMap = data.foodNames.reduce((acc, foodItem) => {
+            acc[foodItem.name] = parseFloat(foodItem.quantity); 
+            return acc;
+        }, {});
+
+        const formattedData = {
+            ...data,
+            consumeDate: formatDate(data.consumeDate),
+            foodNames: foodNamesMap,  
+            timeStamp: getNow(),
+        };
+
+        dispatch(addMeal(formattedData));
     };
 
     const onRemoveMeal = () => {
         alert('Remove Clicked!');
     };
     
-    const onSubmit = (data) =>{
-        console.log(data);
-        alert(data);
-    }
+    const onSubmit = async () => {
+        if (newMeals.length === 0){
+            alert("No new meals to save");
+            return
+        }
+
+        try {
+
+            const response = await axios.post(
+                `http://localhost:8080/api/${slug}/meals/createMealsByBatch`,
+                newMeals,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, 
+                    },
+                }
+            );
+
+            const savedUserMeals = response.data;
+            const savedMeal = savedUserMeals.map(meal => meal.mealDto);
+            
+            dispatch(setMeals([...currentMeals, ...savedMeal]));
+            dispatch(clearMeal());
+
+        } catch (error){
+            console.error('Error saving meals: ', error);
+            alert('Meal save failed. Please refer to the console for bug information');
+        }
+    };
 
     return (
         <MealFormContainer>
             <FormProvider {...MealForm}>
                 <h3 style={{marginBottom: '10px'}}>Meal Editor </h3>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onAddMeal)}>
                     <MealRow>
                         <Input
                             name="name"
@@ -119,9 +170,9 @@ const CreateMealForm = () =>{
                     </FoodSection>
                     </MealRow>
                   
-                    <Button type="button" text='Add Meal' onClick={onAddMeal}/>
+                    <Button type="submit" text='Add Meal'/>
                     <Button type="button" text='Remove Meal' onClick={onRemoveMeal}/>
-                    <Button type="submit" text='Save Meal'/>         
+                    <Button type="submit" text='Save Meal' onClick={onSubmit}/>         
 
                 </form>
             </FormProvider>

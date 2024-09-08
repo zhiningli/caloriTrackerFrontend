@@ -3,7 +3,7 @@ import { MainSectionContainer } from '../MainSection.style';
 import { CreateMealHeader, CreateMealSection, CreateMealSubSection } from './EditMeal.styled';
 import CreateMealForm from './CreateMealForm/CreateMealForm';
 
-function EditMeal() {
+function EditMeal( ) {
 
     return (
         <MainSectionContainer>

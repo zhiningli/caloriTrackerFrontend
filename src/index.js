@@ -11,7 +11,7 @@ import { store } from './redux/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}> {/* Provide the Redux store to the application */}
+    <Provider store={store}>
       <ThemeProvider theme={themeColor}>
         <App />
       </ThemeProvider>

@@ -38,7 +38,10 @@ const LoginPageContainer = () => {
                     headers: { Authorization: `Bearer ${Token}` }
                 });
 
-                dispatch(setMeals(mealsResponse.data));
+                console.log('Meals response:', mealsResponse.data);
+
+                const mealDtos = mealsResponse.data.map(meal => meal.mealDto);
+                dispatch(setMeals(mealDtos));
 
                 navigate(`/${slug}/dashboard`);
             }
