@@ -2,6 +2,7 @@ import React from 'react';
 import { MainSectionContainer } from '../MainSection.style';
 import { CreateMealHeader, CreateMealSection, CreateMealSubSection } from './EditMeal.styled';
 import CreateMealForm from './CreateMealForm/CreateMealForm';
+import MealDisplayColumn from './MealDisplayColumn/MealDisplayColumn';
 
 function EditMeal( ) {
 
@@ -15,7 +16,9 @@ function EditMeal( ) {
                 <CreateMealSubSection>
                     <CreateMealForm/>
                 </CreateMealSubSection>
-                <CreateMealSubSection>This section display the current meal plan for today</CreateMealSubSection>
+                <CreateMealSubSection>
+                    <MealDisplayColumn/>    
+                </CreateMealSubSection>
             </CreateMealSection>
         </MainSectionContainer>
     );

@@ -46,8 +46,8 @@ export const ChartContainer = styled.div`
 
 export const TileContainer = styled.div`
     display: flex;
-    flex-direction: column;  /* Stack items vertically */
-    align-items: flex-start; /* Left-align everything */
+    flex-direction: column; 
+    align-items: flex-start;
     margin-top: 10px;
 `
 
