@@ -3,14 +3,28 @@ import { createSlice } from '@reduxjs/toolkit';
 const mealSlice = createSlice({
     name: 'meals',
     initialState: {
-        meals: []
+        currentMeals: [],
+        newMeals: [],
+        deleteMeals: [],
     },
-    reducers:{
+    reducers: {
         setMeals: (state, action) => {
-            state.meals = action.payload;
+            state.currentMeals = action.payload;
+            console.log(state.currentMeals);
+        },
+        addMeal: (state, action) => {
+            state.newMeals = [...state.newMeals, action.payload]; 
+        },
+        clearMeal: (state, action) => {
+            state.newMeals = [];
+        },
+        removeMeal: (state, action) => {
+            const removedMeal = state.currentMeals[action.payload];
+            state.deleteMeals = [...state.deleteMeals, removedMeal];
+            state.currentMeals = state.currentMeals.filter((meal, index) => index !== action.payload);
         }
     }
 });
 
-export const { setMeals } = mealSlice.actions;
+export const { setMeals, addMeal, clearMeal, removeMeal } = mealSlice.actions;
 export default mealSlice.reducer;

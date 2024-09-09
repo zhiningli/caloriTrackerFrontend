@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import MealPlanComponent from '../components/MainSections/Dashboard/MealPlanComponent/MealPlanComponent';
 
 const MealList = () => {
-    const meals = useSelector( (state) => state.meals.meals);
+    const meals = useSelector( (state) => state.meals.currentMeals);
 
     return(
         <div>
             {meals.map((meal) => {
-                const { name, foodNames, caloriesPerGram, proteinsPerGram, fatsPerGram, carbsPerGram, weight } = meal.mealDto;
+                const { name, foodNames, caloriesPerGram, proteinsPerGram, fatsPerGram, carbsPerGram, weight } = meal;
                 
                 const protein = (proteinsPerGram * weight).toFixed(2);
                 const fat = (fatsPerGram * weight).toFixed(2);

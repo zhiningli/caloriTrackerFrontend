@@ -5,6 +5,8 @@ export const MainSectionContainer = styled.div`
     justify-content: space-between;
     height: 100vh;
     background-color: ${props => props.theme.colorIvory};
-    overflow: auto;
-`;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    width: 1200;
+`
 
