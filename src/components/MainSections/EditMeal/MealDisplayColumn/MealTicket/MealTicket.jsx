@@ -1,43 +1,58 @@
 import React from 'react';
-import { MealTicketContainer, MealTicketHeader, MealCategory, MealCalories, MealIngredients, MealName, MealCaloriesContainer, MealMetricsContainer, MealMetrics, MealMetricsName, MealMetricsValue,MealCaloriesValue, MealCaloriesUnit, MealTicketFirstCol, MealTicketSecondCol} from './MealTicket.styles';
+import {
+  MealTicketContainer,
+  MealTicketHeader,
+  MealCategory,
+  MealCalories,
+  MealIngredients,
+  MealName,
+  MealCaloriesContainer,
+  MealMetricsContainer,
+  MealMetrics,
+  MealMetricsName,
+  MealMetricsValue,
+  MealCaloriesValue,
+  MealCaloriesUnit,
+  MealTicketFirstCol,
+  MealTicketSecondCol
+} from './MealTicket.styles';
 
-const MealTicket = ({ name, category, calories, ingredients }) => {
+const MealTicket = ({id, name, category, calories, ingredients, proteins, fats, carbs, onTicketClick }) => {
+
   return (
-    <MealTicketContainer>
-        <MealTicketFirstCol>
-            <MealTicketHeader>
-                <MealName>{name}</MealName>
-                <MealCategory>{category}</MealCategory>
-            </MealTicketHeader>
-            <MealIngredients>
-                <h4>Ingredients</h4>
-                <p>{ingredients.join(', ')}</p>
-            </MealIngredients>
-        </MealTicketFirstCol>
+    <MealTicketContainer onClick={onTicketClick}>
+      <MealTicketFirstCol>
+        <MealTicketHeader>
+          <MealName>{name}</MealName>
+          <MealCategory>{category}</MealCategory>
+        </MealTicketHeader>
+        <MealIngredients>
+          <p>{ingredients.join(', ')}</p>
+        </MealIngredients>
+      </MealTicketFirstCol>
 
-        <MealTicketSecondCol>
-            <MealCaloriesContainer>
-                <MealCalories>
-                    <MealCaloriesValue>{calories}</MealCaloriesValue>
-                    <MealCaloriesUnit>kCal</MealCaloriesUnit>
-                </MealCalories>
-            </MealCaloriesContainer>
-            <MealMetricsContainer>
-                <MealMetrics type={'protein'}>
-                    <MealMetricsValue>18g</MealMetricsValue>
-                    <MealMetricsName>Protein</MealMetricsName>
-                </MealMetrics>
-                <MealMetrics type={'fat'}>
-                    <MealMetricsValue>18g</MealMetricsValue>
-                    <MealMetricsName>Fats</MealMetricsName>
-                </MealMetrics>
-                <MealMetrics type={'carb'}>
-                    <MealMetricsValue>18g</MealMetricsValue>
-                    <MealMetricsName>Carbs</MealMetricsName>
-                </MealMetrics>
-            </MealMetricsContainer>
-        </MealTicketSecondCol>
- 
+      <MealTicketSecondCol>
+        <MealCaloriesContainer>
+          <MealCalories>
+            <MealCaloriesValue>{calories}</MealCaloriesValue>
+            <MealCaloriesUnit>kCal</MealCaloriesUnit>
+          </MealCalories>
+        </MealCaloriesContainer>
+        <MealMetricsContainer>
+          <MealMetrics type={'protein'}>
+            <MealMetricsValue>{proteins} g</MealMetricsValue> 
+            <MealMetricsName>Proteins</MealMetricsName>
+          </MealMetrics>
+          <MealMetrics type={'fat'}>
+            <MealMetricsValue>{fats} g</MealMetricsValue>
+            <MealMetricsName>Fats</MealMetricsName>
+          </MealMetrics>
+          <MealMetrics type={'carb'}>
+            <MealMetricsValue>{carbs} g</MealMetricsValue> 
+            <MealMetricsName>Carbs</MealMetricsName>
+          </MealMetrics>
+        </MealMetricsContainer>
+      </MealTicketSecondCol>
     </MealTicketContainer>
   );
 };

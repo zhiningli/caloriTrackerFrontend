@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { formatDate, getNow } from '../../../../utils/dateUtil';
 
+
 export const formatFoodNames = (foodNames) => {
     return foodNames.reduce((acc, foodItem) => {
         acc[foodItem.name] = parseFloat(foodItem.quantity);
