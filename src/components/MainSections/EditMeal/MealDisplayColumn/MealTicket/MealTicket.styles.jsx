@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 export const MealTicketContainer = styled.div`
   border: 2px solid ${props => props.theme.colorFurRed};
@@ -10,6 +10,24 @@ export const MealTicketContainer = styled.div`
   height: 140px;;
   flex-direction: row;
   display:flex;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Darken slightly */
+  }
+
+  ${({ $status }) =>
+    $status === 'delete-pending' &&
+    css`
+      background-color: rgba(0, 0, 0, 0.3); /* Dark overlay */
+    `}
+    
+  ${({ $status }) =>
+    $status === 'new' &&
+    css`
+      background-color: rgba(0, 255, 0, 0.1); /* Light green overlay */
+    `}
 `;
 
 export const MealTicketFirstCol = styled.div`

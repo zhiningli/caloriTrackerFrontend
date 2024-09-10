@@ -17,7 +17,6 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
                     currentMeals.map((meal, index) => (
                         <MealTicket
                             key={`currentMeal-${index}`}
-                            id={meal.id}
                             name={meal.name}
                             category={meal.category}
                             calories={getCalories(meal)}
@@ -34,7 +33,6 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
                     newMeals.map((meal, index) => (
                         <MealTicket
                             key={`newMeal-${index}`}
-                            id={meal.id}
                             name={meal.name}
                             category={meal.category}
                             calories={getCalories(meal)}
@@ -43,6 +41,7 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
                             carbs={getCarbs(meal)}
                             ingredients={getIngredients(meal)}
                             onTicketClick={() => onTicketClick(meal.id)}
+                            status={"new"}
                         />
                     ))
                 )}
@@ -51,7 +50,6 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
                     deleteMeals.map((meal, index) => (
                         <MealTicket
                             key={`deleteMeal-${index}`}
-                            id={meal.id}
                             name={meal.name}
                             category={meal.category}
                             calories={getCalories(meal)}
@@ -60,6 +58,7 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
                             carbs={getCarbs(meal)}
                             ingredients={getIngredients(meal)}
                             onTicketClick={() => onTicketClick(meal.id)}
+                            status={"delete-pending"}
                         />
                     ))
                 )}

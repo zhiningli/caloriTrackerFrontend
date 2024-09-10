@@ -17,10 +17,10 @@ import {
   MealTicketSecondCol
 } from './MealTicket.styles';
 
-const MealTicket = ({id, name, category, calories, ingredients, proteins, fats, carbs, onTicketClick }) => {
+const MealTicket = ({name, category, calories, ingredients, proteins, fats, carbs, onTicketClick, status }) => {
 
   return (
-    <MealTicketContainer onClick={onTicketClick}>
+    <MealTicketContainer onClick={onTicketClick} $status={status}>
       <MealTicketFirstCol>
         <MealTicketHeader>
           <MealName>{name}</MealName>
