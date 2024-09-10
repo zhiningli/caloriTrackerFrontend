@@ -86,6 +86,7 @@ export const MealName = styled.h2`
 
 export const MealCategory = styled.p`
   color: #b08968;
+  font-size: 15px;
 `;
 
 export const MealCalories = styled.div`
@@ -114,6 +115,7 @@ export const MealIngredients = styled.div`
   text-align: left;
   width: 100%-20px;
   height: 50%-20px;
+  font-size: 14px;
   margin-bottom: 10px;
   margin-left: 20px;
   margin-top: 10px;

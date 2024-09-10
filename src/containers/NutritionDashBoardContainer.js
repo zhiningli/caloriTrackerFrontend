@@ -5,7 +5,6 @@ import MealPlanDashboard from '../components/MainSections/Dashboard/NutritionDas
 const NutritionDashboardContainer = () => {
 
     const meals = useSelector( (state) => state.meals.currentMeals);
-    console.log(meals);
 
     const aggregateValues = meals.reduce((acc, meal) => {
         acc.proteins += meal.proteinsPerGram * meal.weight;

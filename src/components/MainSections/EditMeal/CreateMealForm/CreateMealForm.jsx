@@ -1,5 +1,5 @@
-import React from 'react';
-import { useForm, FormProvider, useFieldArray } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { useForm, FormProvider, useFieldArray, useWatch } from 'react-hook-form';
 import Input from '../../../Reusable Components/Inputs/StandardInput/StandardInput';
 import Select from '../../../Reusable Components/Inputs/Select/Select';
 import NumberInput from '../../../Reusable Components/Inputs/NumberInput/NumberInput';
@@ -23,12 +23,12 @@ const FoodCategory = [
     { value: 'SUPPER', label: 'Supper' }
 ];
 
-const CreateMealForm = () => {
+const CreateMealForm = ( {selectedMeal, newMeals, currentMeals, deleteMeals, slug, token}) => {
+
+    console.log(selectedMeal);
+
     const dispatch = useDispatch();
-    const slug = useSelector((state) => state.user.slug);
-    const currentMeals = useSelector((state) => state.meals.currentMeals);
-    const newMeals = useSelector((state) => state.meals.newMeals);
-    const token = useSelector((state) => state.user.token);
+
 
     const MealForm = useForm({
         defaultValues: {
@@ -40,28 +40,34 @@ const CreateMealForm = () => {
         },
     });
 
-    const { control, handleSubmit } = MealForm;
+    const { control, handleSubmit, setValue } = MealForm;
     const { fields, append, remove } = useFieldArray({ control, name: 'foodNames' });
 
-    const onAddFood = () => {
-        append({ name: '', quantity: 0 });
-    };
+    const onAddFood = () => {append({ name: '', quantity: 0 });};
 
-    const onDeleteFood = (index) => {
-        remove(index);
-    };
+    const onDeleteFood = (index) => {remove(index);};
 
-    const onAddMeal = (data) => {
-        handleAddMeal(data, dispatch, addMeal);
-    };
+    const onAddMeal = (data) => {handleAddMeal(data, dispatch, addMeal);};
 
-    const onRemoveMeal = (data) => {
-        handleRemoveMeal(data, dispatch, clearMeal);
-    };
+    const onRemoveMeal = (data) => {handleRemoveMeal(data, dispatch, clearMeal);};
 
-    const onSubmit = () => {
-        handleSubmitMeals(newMeals, currentMeals, slug, token, dispatch, setMeals, clearMeal);
-    };
+    const onSubmit = () => {handleSubmitMeals(newMeals, currentMeals, slug, token, dispatch, setMeals, clearMeal);};
+
+    useEffect(() => {
+        if (selectedMeal) {
+            setValue('name', selectedMeal.name);
+            setValue('category', selectedMeal.category);
+            setValue('consumptionDate', selectedMeal.consumptionDate);
+            setValue('consumptionTime', selectedMeal.consumptionTime);
+
+            const foodNamesArray = Object.entries(selectedMeal.foodNames).map(([name, quantity]) => ({
+                name,
+                quantity,
+            }));
+    
+            setValue('foodNames', foodNamesArray);
+        }
+    }, [selectedMeal, setValue]);
 
     return (
         <MealFormContainer>
