@@ -2,11 +2,11 @@ import { faAppleAlt, faCarrot, faDrumstickBite, faCheese, faBreadSlice, faUtensi
 
 
 export const categoryIconMap = {
-    fruit: { icon: faAppleAlt, color: 'orange' },
-    vegetable: { icon: faCarrot, color: 'pink' },
-    protein: { icon: faDrumstickBite, color: 'blue' },
-    dairy: { icon: faCheese, color: 'white' },
-    grain: { icon: faBreadSlice, color: 'purple' },
-    composite: { icon: faUtensils, color: 'green' },
+    fruit: { icon: faAppleAlt, color: '#ff6174' },
+    vegetable: { icon: faCarrot, color: '#078a42' },
+    protein: { icon: faDrumstickBite, color: '#ff8866' },
+    dairy: { icon: faCheese, color: '#F9E4BC' },
+    grain: { icon: faBreadSlice, color: '#c76c3f' },
+    composite: { icon: faUtensils, color: 'FF282A' },
     other: { icon: faQuestionCircle, color: 'brown' },
 };

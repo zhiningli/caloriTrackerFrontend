@@ -1,32 +1,26 @@
 export const openIndexedDB = () => {
     return new Promise((resolve, reject) => {
         if (!window.indexedDB) {
-            console.error("IndexedDB is not supported in this browser.");
             reject("IndexedDB is not supported in this browser.");
             return;
         }
 
-        console.log('Attempting to open IndexedDB...');
         const request = indexedDB.open('FoodDatabase', 2);
 
         request.onupgradeneeded = (event) => {
-            console.log('Upgrading IndexedDB...');
             const db = event.target.result;
             if (!db.objectStoreNames.contains('foods')) {
-                console.log('Creating the object store...');
                 const objectStore = db.createObjectStore('foods', { keyPath: 'id' });
                 objectStore.createIndex('name', 'name', { unique: false });
             }
         };
 
         request.onsuccess = (event) => {
-            console.log('IndexedDB opened successfully');
             const db = event.target.result;
             resolve(db);
         };
 
         request.onerror = (event) => {
-            console.error("Error opening IndexedDB:", event.target.error);
             reject("Error opening IndexedDB");
         };
     });
@@ -116,3 +110,37 @@ export const searchFoodInIndexedDB = (foodName) => {
     });
 };
   
+
+export const getFoodCategoryFromIndexedDB = async (foodName) => {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open('FoodDatabase', 2); 
+        
+        request.onerror = (event) => {
+            console.error('IndexedDB error:', event);
+            reject(null); 
+        };
+        
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            const transaction = db.transaction(['foods'], 'readonly');
+            const objectStore = transaction.objectStore('foods');
+            const nameIndex = objectStore.index('name'); // Use the 'name' index
+
+            const getRequest = nameIndex.get(foodName); // Search by 'name' instead of 'id'
+
+            getRequest.onsuccess = (event) => {
+                const foodData = event.target.result;
+                if (foodData) {
+                    resolve(foodData.category); // Resolve with the category
+                } else {
+                    resolve(null); // If no foodData is found, resolve with null
+                }
+            };
+
+            getRequest.onerror = (event) => {
+                console.error('Error fetching food from IndexedDB:', event);
+                reject(null); 
+            };
+        };
+    });
+};

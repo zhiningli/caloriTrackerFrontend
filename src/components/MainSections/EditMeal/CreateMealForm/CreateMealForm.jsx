@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useForm, FormProvider, useFieldArray, useWatch, useFormContext } from 'react-hook-form';
+import { useForm, FormProvider, useFieldArray, useWatch } from 'react-hook-form';
 import Input from '../../../Reusable Components/Inputs/StandardInput/StandardInput';
 import Select from '../../../Reusable Components/Inputs/Select/Select';
 import NumberInput from '../../../Reusable Components/Inputs/NumberInput/NumberInput';
@@ -80,7 +80,6 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
         let totalProteins = 0;
         let totalFats = 0;
         let totalCarbs = 0;
-        let totalWeight = 0;
 
         foodNames.forEach((food) => {
             const { quantity, caloriesPerGram, proteinsPerGram, fatsPerGram, carbsPerGram } = food;
@@ -89,7 +88,6 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
                 totalProteins += proteinsPerGram * quantity;
                 totalFats += fatsPerGram * quantity;
                 totalCarbs += carbsPerGram * quantity;
-                totalWeight += quantity;
             }
         });
 
@@ -143,7 +141,7 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
 
                     <h3>Food Items <IconButton iconName="add" onClick={onAddFood} /></h3>
                     <MealRow>
-                        <FoodSection>
+                        <FoodSection className='food-section'>
                             {fields.map((item, index) => (
                                 <div key={item.id} style={{ marginBottom: '10px' }}>
                                     <FoodRow>

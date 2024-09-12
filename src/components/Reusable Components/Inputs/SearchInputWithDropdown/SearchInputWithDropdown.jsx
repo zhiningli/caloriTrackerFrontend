@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useEffect } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { InputLabel, InputField, ErrorMessage, InputWrapper, Dropdown } from './SearchInputWithDropdown.styles';
 import { DropdownItem } from './DropdownItem';
 import { useFormContext } from 'react-hook-form';
@@ -18,20 +18,10 @@ const SearchTextInputWithDropdown = forwardRef(({
 
     const [suggestions, setSuggestions] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
-
-    useEffect(() => {
-        const inputElement = document.querySelector(`input[name='${name}']`);
-        if (inputElement) {
-            const rect = inputElement.getBoundingClientRect();
-            setDropdownPosition({ top: rect.bottom, left: rect.left });
-        }
-    }, [inputValue, name]);
 
     const debouncedFetchSuggestions = debounce(async (query) => {
         if (query.length > 2) {
             const results = await fetchSuggestions(query);
-            console.log("Suggestions fetched:", results); 
             setSuggestions(results || []);
             setShowDropdown(true);
         } else {
@@ -68,17 +58,15 @@ const SearchTextInputWithDropdown = forwardRef(({
             {errors[name] && <ErrorMessage>{errors[name].message}</ErrorMessage>}
 
             {showDropdown && suggestions.length > 0 && (
-                <Dropdown top={dropdownPosition.top} left={dropdownPosition.left}>
-                    {suggestions.map((suggestion, index) => {
-                        console.log(suggestion.category);
-                        return (
+                <Dropdown>
+                    {suggestions.map((suggestion, index) => (
                         <DropdownItem
                             key={index}
                             category={suggestion.category.toLowerCase()}
                             label={suggestion.name}
                             onClick={() => handleSuggestionClick(suggestion)}
-                        />)
-                    })}
+                        />
+                    ))}
                 </Dropdown>
             )}
         </InputWrapper>

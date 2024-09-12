@@ -127,17 +127,17 @@ export const MealCaloriesUnit = styled.p`
 `;
 
 export const MealIngredients = styled.div`
-  flex-grow: 1;
+  display: flex;               /* Enables flexbox */
+  align-items: center;          /* Centers content vertically */
   background-color: transparent;
-  color: ${props => props.theme.colorPandaBrown};
   text-align: left;
-  width: 100%-20px;
-  height: 50%-20px;
+  width: calc(100% - 20px);     /* Adjust width minus margin */
   font-size: 14px;
   margin-bottom: 10px;
   margin-left: 20px;
   margin-top: 10px;
-`
+  /* Removing height calculation to let the content define the height */
+`;
 
 export const MealMetricsContainer = styled.div`
   display: flex;

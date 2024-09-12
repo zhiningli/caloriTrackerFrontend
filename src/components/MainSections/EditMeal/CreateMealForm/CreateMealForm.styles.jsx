@@ -26,11 +26,10 @@ export const MultiColRow = styled.div`
 export const FoodSection = styled.div`
     display: flex;
     flex-direction: column;
-    max-height: 200px;
     box-sizing: content-box; 
-    z-index: 1; 
-    overflow-y: scroll;
-    position: relative; 
+    z-index: 1;
+    position: relative;
+    overflow: visible; 
 `;
 
 export const FoodRow = styled.div`

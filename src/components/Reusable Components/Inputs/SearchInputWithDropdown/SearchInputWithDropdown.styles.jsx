@@ -29,12 +29,11 @@ export const ErrorMessage = styled.span`
 `;
 
 export const Dropdown = styled.ul`
-    position: fixed;
-    top: ${(props) => props.top}px;
-    left: ${(props) => props.left}px;
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 220px;
     border: 1px solid #ccc;
-    border-top: none;
     max-height: 150px;
     overflow-y: auto;
     background: white;
@@ -44,6 +43,8 @@ export const Dropdown = styled.ul`
     margin: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
+
+
 
 export const DropdownItem = styled.li`
     padding: 10px;
