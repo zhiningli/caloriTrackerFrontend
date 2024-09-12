@@ -80,21 +80,19 @@ export const searchFoodInIndexedDB = (foodName) => {
             const db = event.target.result;
             const transaction = db.transaction('foods', 'readonly');
             const store = transaction.objectStore('foods');
-            const index = store.index('name'); // Ensure that the "name" index is created in IndexedDB schema.
+            const index = store.index('name');
 
             const suggestions = [];
 
-            // Using a cursor to loop through items and match partially
-            const range = IDBKeyRange.bound(foodName, foodName + '\uffff'); // This will match items starting with `foodName`
+            const range = IDBKeyRange.bound(foodName, foodName + '\uffff'); 
             const cursorRequest = index.openCursor(range);
 
             cursorRequest.onsuccess = (event) => {
                 const cursor = event.target.result;
                 if (cursor) {
-                    suggestions.push(cursor.value); // Add the matching food to the suggestions array
-                    cursor.continue(); // Move to the next matching item
+                    suggestions.push(cursor.value); 
+                    cursor.continue(); 
                 } else {
-                    // If no more results, resolve with suggestions
                     resolve(suggestions);
                 }
             };
@@ -124,22 +122,57 @@ export const getFoodCategoryFromIndexedDB = async (foodName) => {
             const db = event.target.result;
             const transaction = db.transaction(['foods'], 'readonly');
             const objectStore = transaction.objectStore('foods');
-            const nameIndex = objectStore.index('name'); // Use the 'name' index
+            const nameIndex = objectStore.index('name');
 
-            const getRequest = nameIndex.get(foodName); // Search by 'name' instead of 'id'
+            const getRequest = nameIndex.get(foodName); 
 
             getRequest.onsuccess = (event) => {
                 const foodData = event.target.result;
                 if (foodData) {
-                    resolve(foodData.category); // Resolve with the category
+                    resolve(foodData.category); 
                 } else {
-                    resolve(null); // If no foodData is found, resolve with null
+                    resolve(null); 
                 }
             };
 
             getRequest.onerror = (event) => {
                 console.error('Error fetching food from IndexedDB:', event);
                 reject(null); 
+            };
+        };
+    });
+};
+
+export const getFoodNutritionalInfoFromIndexedDB = async (foodName) => {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open('FoodDatabase', 2);
+
+        request.onerror = (event) => {
+            console.error('IndexedDB error:', event);
+            reject(null);
+        };
+
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            const transaction = db.transaction(['foods'], 'readonly');
+            const objectStore = transaction.objectStore('foods');
+            const nameIndex = objectStore.index('name');
+
+            const getRequest = nameIndex.get(foodName);
+
+            getRequest.onsuccess = (event) => {
+                const foodData = event.target.result;
+                if (foodData) {
+                    const { caloriesPerGram, proteinsPerGram, fatsPerGram, carbsPerGram } = foodData;
+                    resolve({ caloriesPerGram, proteinsPerGram, fatsPerGram, carbsPerGram });
+                } else {
+                    resolve(null); 
+                }
+            };
+
+            getRequest.onerror = (event) => {
+                console.error('Error fetching food from IndexedDB:', event);
+                reject(null);
             };
         };
     });

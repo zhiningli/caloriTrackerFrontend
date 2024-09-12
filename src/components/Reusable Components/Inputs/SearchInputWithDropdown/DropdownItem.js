@@ -1,6 +1,6 @@
 import { ThemedDropdownItem } from "./DropdownItem.style";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { categoryIconMap } from "../../CategoryIcons/CategoryIconMap";
+import { categoryIconMap } from "../../Category/CategoryIconMap";
 
 export const DropdownItem = ({ category, label, onClick }) => {
     const { icon, color } = categoryIconMap[category] || {};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { categoryIconMap } from '../../../../Reusable Components/CategoryIcons/CategoryIconMap';
+import { categoryIconMap } from '../../../../Reusable Components/Category/CategoryIconMap';
 import { getFoodCategoryFromIndexedDB } from '../../../../../utils/indexedDBUtil';
 import {
   MealTicketContainer,

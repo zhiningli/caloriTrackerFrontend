@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { formatDate, getNow } from '../../../../utils/dateUtil';
-
+import { getFoodNutritionalInfoFromIndexedDB } from '../../../../utils/indexedDBUtil';
 
 export const formatFoodNames = (foodNames) => {
     return foodNames.reduce((acc, foodItem) => {
@@ -20,10 +20,23 @@ export const formatMealData = (data) => {
     return formattedData;
 };
 
+
+export const handleAddFood = (append) => {
+    append({ name: '', quantity: 0 });
+};
+
+export const handleDeleteFood = (remove, index) => {
+    remove(index);
+};
+
+
+
 export const handleAddMeal = (data, dispatch, addMeal) => {
     const formattedData = formatMealData(data);
+
     dispatch(addMeal(formattedData));
 };
+
 
 export const handleRemoveMeal = (data, dispatch, removeMeal) => {
     const formattedData = formatMealData(data);
@@ -54,4 +67,33 @@ export const handleSubmitMeals = async (newMeals, currentMeals, slug, token, dis
         console.error('Error saving meals: ', error);
         alert('Meal save failed. Please refer to the console for bug information');
     }
+};
+
+export const calculateTotalNutrients = async (foodNames, setTotalNutrients) => {
+    let totalCalories = 0;
+    let totalProteins = 0;
+    let totalFats = 0;
+    let totalCarbs = 0;
+    const promises = foodNames.map(async (food) => {
+        const { quantity, name } = food;
+        if (quantity && name) {
+            const nutritionalInfo = await getFoodNutritionalInfoFromIndexedDB(name);
+            if (nutritionalInfo) {
+                const { caloriesPerGram, proteinsPerGram, fatsPerGram, carbsPerGram } = nutritionalInfo;
+                totalCalories += caloriesPerGram * quantity;
+                totalProteins += proteinsPerGram * quantity;
+                totalFats += fatsPerGram * quantity;
+                totalCarbs += carbsPerGram * quantity;
+            }
+        }
+    });
+
+    await Promise.all(promises); 
+
+    setTotalNutrients({
+        calories: totalCalories,
+        proteins: totalProteins,
+        fats: totalFats,
+        carbs: totalCarbs,
+    });
 };

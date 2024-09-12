@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, FormProvider, useFieldArray, useWatch } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { searchFoodInIndexedDB } from '../../../../utils/indexedDBUtil';
+import { addMeal, clearMeal, setMeals } from '../../../../redux/mealSlice';
+
 import Input from '../../../Reusable Components/Inputs/StandardInput/StandardInput';
 import Select from '../../../Reusable Components/Inputs/Select/Select';
 import NumberInput from '../../../Reusable Components/Inputs/NumberInput/NumberInput';
 import SearchInputWithDropdown from '../../../Reusable Components/Inputs/SearchInputWithDropdown/SearchInputWithDropdown';
-import { MealRow, MultiColRow, FoodRow, FoodSection, MealFormContainer } from './CreateMealForm.styles';
-import IconButton from '../../../Reusable Components/IconButtons/IconButton';
 import TimePicker from '../../../Reusable Components/Inputs/TimePicker/TimePicker';
 import DatePicker from '../../../Reusable Components/Inputs/DatePicker/DatePicker';
 import Button from '../../../Reusable Components/Button/Button';
-import { useDispatch } from 'react-redux';
-import { addMeal, clearMeal, setMeals } from '../../../../redux/mealSlice';
-import { handleAddMeal, handleRemoveMeal, handleSubmitMeals } from './CreateMealFormMethods';
-import { searchFoodInIndexedDB } from '../../../../utils/indexedDBUtil';
+import IconButton from '../../../Reusable Components/IconButtons/IconButton';
+import { MealRow, MultiColRow, FoodRow, FoodSection, MealFormContainer } from './CreateMealForm.styles';
 
-const FoodCategory = [
-    { value: 'BREAKFAST', label: 'Breakfast' },
-    { value: 'BRUNCH', label: 'Brunch' },
-    { value: 'LUNCH', label: 'Lunch' },
-    { value: 'DRINK', label: 'Drink' },
-    { value: 'SNACK', label: 'Snack' },
-    { value: 'DINNER', label: 'Dinner' },
-    { value: 'OTHER', label: 'Other' },
-    { value: 'SUPPER', label: 'Supper' }
-];
+import { handleAddMeal, handleRemoveMeal, handleSubmitMeals, handleAddFood,handleDeleteFood ,calculateTotalNutrients } from './CreateMealFormMethods';
+import { FoodCategory } from '../../../Reusable Components/Category/CategoryMap';
 
 const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slug, token }) => {
 
@@ -48,15 +40,10 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
 
     const { control, handleSubmit, setValue } = MealForm;
     const { fields, append, remove } = useFieldArray({ control, name: 'foodNames' });
-
-    const onAddFood = () => append({ name: '', quantity: 0 });
-
-    const onDeleteFood = (index) => remove(index);
+    const foodNames = useWatch({ control, name: 'foodNames' });
 
     const onAddMeal = (data) => handleAddMeal(data, dispatch, addMeal);
-
     const onRemoveMeal = (data) => handleRemoveMeal(data, dispatch, clearMeal);
-
     const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, slug, token, dispatch, setMeals, clearMeal);
 
     useEffect(() => {
@@ -75,34 +62,8 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
         }
     }, [selectedMeal, setValue]);
 
-    const calculateTotalNutrients = (foodNames) => {
-        let totalCalories = 0;
-        let totalProteins = 0;
-        let totalFats = 0;
-        let totalCarbs = 0;
-
-        foodNames.forEach((food) => {
-            const { quantity, caloriesPerGram, proteinsPerGram, fatsPerGram, carbsPerGram } = food;
-            if (quantity && caloriesPerGram) {
-                totalCalories += caloriesPerGram * quantity;
-                totalProteins += proteinsPerGram * quantity;
-                totalFats += fatsPerGram * quantity;
-                totalCarbs += carbsPerGram * quantity;
-            }
-        });
-
-        setTotalNutrients({
-            calories: totalCalories,
-            proteins: totalProteins,
-            fats: totalFats,
-            carbs: totalCarbs,
-        });
-    };
-
-    const foodNames = useWatch({ control, name: 'foodNames' });
-
     useEffect(() => {
-        calculateTotalNutrients(foodNames);
+        calculateTotalNutrients(foodNames, setTotalNutrients);
     }, [foodNames]);
 
     return (
@@ -139,7 +100,7 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
                         />
                     </MultiColRow>
 
-                    <h3>Food Items <IconButton iconName="add" onClick={onAddFood} /></h3>
+                    <h3>Food Items <IconButton iconName="add" onClick={() => handleAddFood(append)} /></h3>
                     <MealRow>
                         <FoodSection className='food-section'>
                             {fields.map((item, index) => (
@@ -157,7 +118,7 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
                                             isRequired={true}
                                             validationRules={{ min: { value: 1, message: "Weight must be at least 1" } }}
                                         />
-                                        <IconButton iconName="delete" onClick={() => onDeleteFood(index)} disabled={index === 0} />
+                                        <IconButton iconName="delete" onClick={() => handleDeleteFood(remove, index)} disabled={index === 0} />
                                     </FoodRow>
                                 </div>
                             ))}
