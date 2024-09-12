@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
-import { useForm, FormProvider, useFieldArray, useWatch } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useForm, FormProvider, useFieldArray, useWatch, useFormContext } from 'react-hook-form';
 import Input from '../../../Reusable Components/Inputs/StandardInput/StandardInput';
 import Select from '../../../Reusable Components/Inputs/Select/Select';
 import NumberInput from '../../../Reusable Components/Inputs/NumberInput/NumberInput';
+import SearchInputWithDropdown from '../../../Reusable Components/Inputs/SearchInputWithDropdown/SearchInputWithDropdown';
 import { MealRow, MultiColRow, FoodRow, FoodSection, MealFormContainer } from './CreateMealForm.styles';
 import IconButton from '../../../Reusable Components/IconButtons/IconButton';
 import TimePicker from '../../../Reusable Components/Inputs/TimePicker/TimePicker';
 import DatePicker from '../../../Reusable Components/Inputs/DatePicker/DatePicker';
 import Button from '../../../Reusable Components/Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addMeal, clearMeal, setMeals } from '../../../../redux/mealSlice';
 import { handleAddMeal, handleRemoveMeal, handleSubmitMeals } from './CreateMealFormMethods';
+import { searchFoodInIndexedDB } from '../../../../utils/indexedDBUtil';
 
 const FoodCategory = [
     { value: 'BREAKFAST', label: 'Breakfast' },
@@ -23,12 +25,16 @@ const FoodCategory = [
     { value: 'SUPPER', label: 'Supper' }
 ];
 
-const CreateMealForm = ( {selectedMeal, newMeals, currentMeals, deleteMeals, slug, token}) => {
-
-    console.log(selectedMeal);
+const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slug, token }) => {
 
     const dispatch = useDispatch();
 
+    const [totalNutrients, setTotalNutrients] = useState({
+        calories: 0,
+        proteins: 0,
+        fats: 0,
+        carbs: 0,
+    });
 
     const MealForm = useForm({
         defaultValues: {
@@ -43,15 +49,15 @@ const CreateMealForm = ( {selectedMeal, newMeals, currentMeals, deleteMeals, slu
     const { control, handleSubmit, setValue } = MealForm;
     const { fields, append, remove } = useFieldArray({ control, name: 'foodNames' });
 
-    const onAddFood = () => {append({ name: '', quantity: 0 });};
+    const onAddFood = () => append({ name: '', quantity: 0 });
 
-    const onDeleteFood = (index) => {remove(index);};
+    const onDeleteFood = (index) => remove(index);
 
-    const onAddMeal = (data) => {handleAddMeal(data, dispatch, addMeal);};
+    const onAddMeal = (data) => handleAddMeal(data, dispatch, addMeal);
 
-    const onRemoveMeal = (data) => {handleRemoveMeal(data, dispatch, clearMeal);};
+    const onRemoveMeal = (data) => handleRemoveMeal(data, dispatch, clearMeal);
 
-    const onSubmit = () => {handleSubmitMeals(newMeals, currentMeals, slug, token, dispatch, setMeals, clearMeal);};
+    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, slug, token, dispatch, setMeals, clearMeal);
 
     useEffect(() => {
         if (selectedMeal) {
@@ -64,10 +70,42 @@ const CreateMealForm = ( {selectedMeal, newMeals, currentMeals, deleteMeals, slu
                 name,
                 quantity,
             }));
-    
+
             setValue('foodNames', foodNamesArray);
         }
     }, [selectedMeal, setValue]);
+
+    const calculateTotalNutrients = (foodNames) => {
+        let totalCalories = 0;
+        let totalProteins = 0;
+        let totalFats = 0;
+        let totalCarbs = 0;
+        let totalWeight = 0;
+
+        foodNames.forEach((food) => {
+            const { quantity, caloriesPerGram, proteinsPerGram, fatsPerGram, carbsPerGram } = food;
+            if (quantity && caloriesPerGram) {
+                totalCalories += caloriesPerGram * quantity;
+                totalProteins += proteinsPerGram * quantity;
+                totalFats += fatsPerGram * quantity;
+                totalCarbs += carbsPerGram * quantity;
+                totalWeight += quantity;
+            }
+        });
+
+        setTotalNutrients({
+            calories: totalCalories,
+            proteins: totalProteins,
+            fats: totalFats,
+            carbs: totalCarbs,
+        });
+    };
+
+    const foodNames = useWatch({ control, name: 'foodNames' });
+
+    useEffect(() => {
+        calculateTotalNutrients(foodNames);
+    }, [foodNames]);
 
     return (
         <MealFormContainer>
@@ -109,10 +147,11 @@ const CreateMealForm = ( {selectedMeal, newMeals, currentMeals, deleteMeals, slu
                             {fields.map((item, index) => (
                                 <div key={item.id} style={{ marginBottom: '10px' }}>
                                     <FoodRow>
-                                        <Input
+                                        <SearchInputWithDropdown
                                             name={`foodNames[${index}].name`}
                                             label={`Food Name`}
                                             isRequired={true}
+                                            fetchSuggestions={searchFoodInIndexedDB}
                                         />
                                         <NumberInput
                                             name={`foodNames[${index}].quantity`}
@@ -132,6 +171,10 @@ const CreateMealForm = ( {selectedMeal, newMeals, currentMeals, deleteMeals, slu
                     <Button type="button" text='Save Meal' onClick={onSubmit} />
                 </form>
             </FormProvider>
+            <div>Total Calories: {totalNutrients.calories}</div>
+            <div>Total Proteins: {totalNutrients.proteins}</div>
+            <div>Total Fats: {totalNutrients.fats}</div>
+            <div>Total Carbs: {totalNutrients.carbs}</div>
         </MealFormContainer>
     );
 };

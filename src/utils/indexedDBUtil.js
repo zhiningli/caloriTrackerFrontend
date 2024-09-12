@@ -78,4 +78,41 @@ export const checkIfDataLoadedFromIndexedDB = async () => {
     });
 };
 
+export const searchFoodInIndexedDB = (foodName) => {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open('FoodDatabase', 2);
+
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            const transaction = db.transaction('foods', 'readonly');
+            const store = transaction.objectStore('foods');
+            const index = store.index('name'); // Ensure that the "name" index is created in IndexedDB schema.
+
+            const suggestions = [];
+
+            // Using a cursor to loop through items and match partially
+            const range = IDBKeyRange.bound(foodName, foodName + '\uffff'); // This will match items starting with `foodName`
+            const cursorRequest = index.openCursor(range);
+
+            cursorRequest.onsuccess = (event) => {
+                const cursor = event.target.result;
+                if (cursor) {
+                    suggestions.push(cursor.value); // Add the matching food to the suggestions array
+                    cursor.continue(); // Move to the next matching item
+                } else {
+                    // If no more results, resolve with suggestions
+                    resolve(suggestions);
+                }
+            };
+
+            cursorRequest.onerror = () => {
+                reject('Error fetching data from IndexedDB');
+            };
+        };
+
+        request.onerror = (event) => {
+            reject('Error opening IndexedDB');
+        };
+    });
+};
   
