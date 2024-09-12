@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, FormProvider, useFieldArray, useWatch } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { searchFoodInIndexedDB } from '../../../../utils/indexedDBUtil';
-import { addMeal, clearMeal, setMeals } from '../../../../redux/mealSlice';
-
+import { useDispatch } from 'react-redux';
 import Input from '../../../Reusable Components/Inputs/StandardInput/StandardInput';
 import Select from '../../../Reusable Components/Inputs/Select/Select';
 import NumberInput from '../../../Reusable Components/Inputs/NumberInput/NumberInput';
@@ -14,19 +12,14 @@ import Button from '../../../Reusable Components/Button/Button';
 import IconButton from '../../../Reusable Components/IconButtons/IconButton';
 import { MealRow, MultiColRow, FoodRow, FoodSection, MealFormContainer } from './CreateMealForm.styles';
 
-import { handleAddMeal, handleRemoveMeal, handleSubmitMeals, handleAddFood,handleDeleteFood ,calculateTotalNutrients } from './CreateMealFormMethods';
+import { handleAddMeal, handleSubmitMeals, handleAddFood, handleAddNewMeal, handleDeleteFood, calculateTotalNutrients, handleUpdateMeal } from './CreateMealFormMethods';
 import { FoodCategory } from '../../../Reusable Components/Category/CategoryMap';
 
-const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slug, token }) => {
+const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals, deleteMeals, slug, token }) => {
 
     const dispatch = useDispatch();
 
-    const [totalNutrients, setTotalNutrients] = useState({
-        calories: 0,
-        proteins: 0,
-        fats: 0,
-        carbs: 0,
-    });
+    const [selectedMeal, setSelectedMeal] = useState(propSelectedMeal);
 
     const MealForm = useForm({
         defaultValues: {
@@ -38,13 +31,26 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
         },
     });
 
+    const [totalNutrients, setTotalNutrients] = useState({
+        calories: 0,
+        proteins: 0,
+        fats: 0,
+        carbs: 0,
+    });
+
     const { control, handleSubmit, setValue } = MealForm;
     const { fields, append, remove } = useFieldArray({ control, name: 'foodNames' });
     const foodNames = useWatch({ control, name: 'foodNames' });
 
-    const onAddMeal = (data) => handleAddMeal(data, dispatch, addMeal);
-    const onRemoveMeal = (data) => handleRemoveMeal(data, dispatch, clearMeal);
-    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, slug, token, dispatch, setMeals, clearMeal);
+    const onAddMeal = (data) => handleAddMeal(data, dispatch);
+    const onUpdateMeal = (data) => {
+        const selectedID = propSelectedMeal.id;
+        handleUpdateMeal(data, selectedID, dispatch);
+    };
+
+    const onAddNewMeal = (MealForm, setSelectedMeal) => {handleAddNewMeal(MealForm, setSelectedMeal);};
+
+    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, slug, token, dispatch);
 
     useEffect(() => {
         if (selectedMeal) {
@@ -66,11 +72,15 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
         calculateTotalNutrients(foodNames, setTotalNutrients);
     }, [foodNames]);
 
+    useEffect(() => {
+        setSelectedMeal(propSelectedMeal); 
+    }, [propSelectedMeal]);
+
     return (
         <MealFormContainer>
             <FormProvider {...MealForm}>
                 <h3 style={{ marginBottom: '10px' }}>Meal Editor</h3>
-                <form onSubmit={handleSubmit(onAddMeal)}>
+                <form onSubmit={handleSubmit(selectedMeal ? onUpdateMeal : onAddMeal)}>
                     <MealRow>
                         <Input
                             name="name"
@@ -125,8 +135,19 @@ const CreateMealForm = ({ selectedMeal, newMeals, currentMeals, deleteMeals, slu
                         </FoodSection>
                     </MealRow>
 
-                    <Button type="submit" text='Add Meal' />
-                    <Button type="button" text='Remove Meal' onClick={onRemoveMeal} />
+                    {selectedMeal ? (
+                        <>
+                            <Button type="submit" text='Update Meal' />
+                            <Button
+                                type="button"
+                                text='Add New Meal'
+                                onClick={onAddNewMeal}
+                            />
+                        </>
+                    ) : (
+                        <Button type="submit" text='Add Meal' />
+                    )}
+
                     <Button type="button" text='Save Meal' onClick={onSubmit} />
                 </form>
             </FormProvider>

@@ -4,6 +4,8 @@ import { MealDisplayColumnContainer } from './MealDisplayColumn.styles';
 import { getNutritions } from '../../../../utils/nutritionUtil';
 
 const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick }) => {
+    console.log('currentMeals: ', currentMeals);
+    console.log('newMeals: ', newMeals);
     const getCalories = (meal) => (meal.caloriesPerGram * meal.weight).toFixed(0);
     const getProteins = (meal) => (meal.proteinsPerGram * meal.weight).toFixed(0);
     const getFats = (meal) => (meal.fatsPerGram * meal.weight).toFixed(0);
@@ -24,7 +26,9 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
             setNewMealsWithNutrition(mealsWithNutrition);
         };
 
-        if (newMeals.length > 0) {
+        if (newMeals.length === 0) {
+            setNewMealsWithNutrition([]);
+        } else {
             fetchNutritionForNewMeals();
         }
     }, [newMeals]);

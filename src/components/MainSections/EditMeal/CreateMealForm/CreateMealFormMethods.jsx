@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { formatDate, getNow } from '../../../../utils/dateUtil';
 import { getFoodNutritionalInfoFromIndexedDB } from '../../../../utils/indexedDBUtil';
+import { addMeal, clearMeal, setMeals, updateMeal, removeMeal } from '../../../../redux/mealSlice';
+
 
 export const formatFoodNames = (foodNames) => {
     return foodNames.reduce((acc, foodItem) => {
@@ -29,21 +31,35 @@ export const handleDeleteFood = (remove, index) => {
     remove(index);
 };
 
-
-
-export const handleAddMeal = (data, dispatch, addMeal) => {
+export const handleAddMeal = (data, dispatch) => {
     const formattedData = formatMealData(data);
-
     dispatch(addMeal(formattedData));
 };
 
+export const handleAddNewMeal = (MealForm, setSelectedMeal) => {
+    MealForm.reset({
+        name: '',
+        category: 'COMPOSITE',
+        consumptionDate: '',
+        consumptionTime: '',
+        foodNames: [{ name: '', quantity: 0 }],
+    });
+    setSelectedMeal(null);
+};
 
-export const handleRemoveMeal = (data, dispatch, removeMeal) => {
+export const handleUpdateMeal = (data, selectedID, dispatch) => {
+    const formattedData = formatMealData(data);
+    const formattedDataWithID = { ...formattedData, id: selectedID };
+    console.log(formattedDataWithID);
+    dispatch(updateMeal(formattedDataWithID));
+}
+
+export const handleRemoveMeal = (data, dispatch) => {
     const formattedData = formatMealData(data);
     dispatch(removeMeal(formattedData));
 };
 
-export const handleSubmitMeals = async (newMeals, currentMeals, slug, token, dispatch, setMeals, clearMeal) => {
+export const handleSubmitMeals = async (newMeals, currentMeals, slug, token, dispatch) => {
     if (newMeals.length === 0) {
         alert("No new meals to save");
         return;
@@ -59,10 +75,11 @@ export const handleSubmitMeals = async (newMeals, currentMeals, slug, token, dis
                 },
             }
         );
+        dispatch(clearMeal());
         const savedMeal = response.data.map((meal) => meal.mealDto);
         console.log('savedMeal returned from the backend', savedMeal);
         dispatch(setMeals([...currentMeals, ...savedMeal]));
-        dispatch(clearMeal());
+
     } catch (error) {
         console.error('Error saving meals: ', error);
         alert('Meal save failed. Please refer to the console for bug information');
