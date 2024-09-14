@@ -10,12 +10,13 @@ function EditMeal() {
     const currentMeals = useSelector((state) => state.meals.currentMeals);
     const newMeals = useSelector((state) => state.meals.newMeals);
     const deleteMeals = useSelector((state) => state.meals.deleteMeals);
+    const updatedMeals = useSelector((state)=> state.meals.updatedMeals)
     const slug = useSelector((state) => state.user.slug);
     const token = useSelector((state) => state.user.token);
 
     const [selectedMealId, setSelectedMealId] = useState(null);
     
-    const selectedMeal = currentMeals.concat(newMeals, deleteMeals).find((meal) => meal.id === selectedMealId);
+    const selectedMeal = currentMeals.concat(newMeals, deleteMeals, updatedMeals).find((meal) => meal.id === selectedMealId);
 
     const handleTicketClick = (id) => {
         setSelectedMealId(id); 
@@ -34,6 +35,7 @@ function EditMeal() {
                         selectedMeal={selectedMeal} 
                         currentMeals={currentMeals} 
                         newMeals={newMeals} 
+                        updatedMeals={updatedMeals}
                         slug={slug} 
                         token={token} />
                 </CreateMealSubSection>
@@ -43,6 +45,7 @@ function EditMeal() {
                         currentMeals={currentMeals} 
                         newMeals={newMeals} 
                         deleteMeals={deleteMeals} 
+                        updatedMeals={updatedMeals}
                         onTicketClick={handleTicketClick} 
                     />
                 </CreateMealSubSection>

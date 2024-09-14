@@ -15,8 +15,8 @@ import { MealRow, MultiColRow, FoodRow, FoodSection, MealFormContainer } from '.
 import { handleAddMeal, handleSubmitMeals, handleAddFood, handleAddNewMeal, handleDeleteFood, calculateTotalNutrients, handleUpdateMeal } from './CreateMealFormMethods';
 import { FoodCategory } from '../../../Reusable Components/Category/CategoryMap';
 
-const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals, deleteMeals, slug, token }) => {
-
+const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals, deleteMeals, updatedMeals, slug, token }) => {
+    console.log(propSelectedMeal);
     const dispatch = useDispatch();
 
     const [selectedMeal, setSelectedMeal] = useState(propSelectedMeal);
@@ -38,7 +38,7 @@ const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals
         carbs: 0,
     });
 
-    const { control, handleSubmit, setValue } = MealForm;
+    const { control, handleSubmit, setValue, reset } = MealForm;
     const { fields, append, remove } = useFieldArray({ control, name: 'foodNames' });
     const foodNames = useWatch({ control, name: 'foodNames' });
 
@@ -48,9 +48,9 @@ const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals
         handleUpdateMeal(data, selectedID, dispatch);
     };
 
-    const onAddNewMeal = (MealForm, setSelectedMeal) => {handleAddNewMeal(MealForm, setSelectedMeal);};
+    const onAddNewMeal = () => {handleAddNewMeal(reset, setSelectedMeal);};
 
-    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, slug, token, dispatch);
+    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, updatedMeals, slug, token, dispatch);
 
     useEffect(() => {
         if (selectedMeal) {

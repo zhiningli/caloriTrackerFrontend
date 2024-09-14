@@ -3,9 +3,10 @@ import MealTicket from './MealTicket/MealTicket';
 import { MealDisplayColumnContainer } from './MealDisplayColumn.styles';
 import { getNutritions } from '../../../../utils/nutritionUtil';
 
-const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick }) => {
+const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,onTicketClick }) => {
     console.log('currentMeals: ', currentMeals);
     console.log('newMeals: ', newMeals);
+    console.log('updateMeals', updatedMeals);
     const getCalories = (meal) => (meal.caloriesPerGram * meal.weight).toFixed(0);
     const getProteins = (meal) => (meal.proteinsPerGram * meal.weight).toFixed(0);
     const getFats = (meal) => (meal.fatsPerGram * meal.weight).toFixed(0);
@@ -16,7 +17,8 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
 
     useEffect(() => {
         const fetchNutritionForNewMeals = async () => {
-            const mealsWithNutrition = await Promise.all(newMeals.map(async (meal) => {
+            const mealLackNutritionInfo = newMeals.concat(updatedMeals);
+            const mealsWithNutrition = await Promise.all(mealLackNutritionInfo.map(async (meal) => {
                 const nutrition = await getNutritions(meal);
                 return {
                     ...meal,
@@ -26,12 +28,12 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
             setNewMealsWithNutrition(mealsWithNutrition);
         };
 
-        if (newMeals.length === 0) {
+        if (newMeals.length === 0 && updatedMeals.length === 0) {
             setNewMealsWithNutrition([]);
         } else {
             fetchNutritionForNewMeals();
         }
-    }, [newMeals]);
+    }, [newMeals, updatedMeals]);
 
 
     return (
@@ -53,11 +55,11 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
                         />
                     ))
                 )}
-
+    
                 {newMealsWithNutrition.length > 0 && (
                     newMealsWithNutrition.map((meal, index) => (
                         <MealTicket
-                            key={`newMeal-${index}`}
+                            key={`updatedMeal-${index}`}
                             name={meal.name}
                             category={meal.category}
                             calories={meal.calories} 
@@ -70,7 +72,7 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
                         />
                     ))
                 )}
-
+    
                 {deleteMeals.length > 0 && (
                     deleteMeals.map((meal, index) => (
                         <MealTicket
@@ -90,6 +92,7 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, onTicketClick 
             </div>
         </MealDisplayColumnContainer>
     );
+    
 };
 
 export default MealDisplayColumn;

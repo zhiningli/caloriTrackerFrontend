@@ -2,8 +2,9 @@ import moment from 'moment';
 
 
 export const formatDate = (date) => {
+    console.log(date);
 
-    const parsedDate = moment(date, 'DD/MM/YYYY', true); 
+    const parsedDate = moment(date, 'YYYY-MM-DD', true); 
 
     if (parsedDate.isValid()) {
         return parsedDate.format('YYYY-MM-DD'); 
