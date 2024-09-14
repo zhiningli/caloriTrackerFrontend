@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import { formatDate, getNow } from '../../../../utils/dateUtil';
 import { getFoodNutritionalInfoFromIndexedDB } from '../../../../utils/indexedDBUtil';
 import { addMeal, clearMeal, setMeals, updateMeal, removeMeal } from '../../../../redux/mealSlice';
@@ -33,11 +34,16 @@ export const handleDeleteFood = (remove, index) => {
 
 export const handleAddMeal = (data, dispatch) => {
     const formattedData = formatMealData(data);
-    dispatch(addMeal(formattedData));
+    const tempUUID = `temp-${uuidv4()}`;
+    const formattedDataWithID = { 
+        ...formattedData, 
+        id: tempUUID, 
+    };
+    dispatch(addMeal(formattedDataWithID));
 };
 
-export const handleAddNewMeal = (MealForm, setSelectedMeal) => {
-    MealForm.reset({
+export const handleAddNewMeal = (reset, setSelectedMeal) => {
+    reset({
         name: '',
         category: 'COMPOSITE',
         consumptionDate: '',
@@ -59,14 +65,14 @@ export const handleRemoveMeal = (data, dispatch) => {
     dispatch(removeMeal(formattedData));
 };
 
-export const handleSubmitMeals = async (newMeals, currentMeals, slug, token, dispatch) => {
-    if (newMeals.length === 0) {
+export const handleSubmitMeals = async (newMeals, currentMeals,updatedMeals, slug, token, dispatch) => {
+    if (newMeals.length === 0 && updatedMeals.length === 0) {
         alert("No new meals to save");
         return;
     }
 
     try {
-        const response = await axios.post(
+        const newMealresponse = await axios.post(
             `http://localhost:8080/api/${slug}/meals/createMealsByBatch`,
             newMeals,
             {
@@ -75,10 +81,21 @@ export const handleSubmitMeals = async (newMeals, currentMeals, slug, token, dis
                 },
             }
         );
-        dispatch(clearMeal());
-        const savedMeal = response.data.map((meal) => meal.mealDto);
+
+        const updatedMealResponse = await axios.post(
+            `http://localhost:8080/api/${slug}/meals/updateMealsByBatch`,
+            updatedMeals,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        const savedMeal = newMealresponse.data.map((meal) => meal.mealDto).concat(updatedMealResponse.data.map((meal) => meal.mealDto));
         console.log('savedMeal returned from the backend', savedMeal);
         dispatch(setMeals([...currentMeals, ...savedMeal]));
+        dispatch(clearMeal());
 
     } catch (error) {
         console.error('Error saving meals: ', error);

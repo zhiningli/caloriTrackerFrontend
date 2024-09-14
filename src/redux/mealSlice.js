@@ -6,6 +6,7 @@ const mealSlice = createSlice({
         currentMeals: [],
         newMeals: [],
         deleteMeals: [],
+        updatedMeals: [],
     },
     reducers: {
         setMeals: (state, action) => {
@@ -17,6 +18,7 @@ const mealSlice = createSlice({
         },
         clearMeal: (state, action) => {
             state.newMeals = [];
+            state.updatedMeals = [];
         },
         removeMeal: (state, action) => {
             const removedMeal = state.currentMeals[action.payload];
@@ -25,8 +27,9 @@ const mealSlice = createSlice({
         },
         updateMeal: (state, action) => {
             state.currentMeals = state.currentMeals.filter((meal) => meal.id !== action.payload.id);
-            state.newMeals = state.newMeals.filter((meal) => meal.id !== action.payload.id);
-            state.newMeals= [...state.newMeals, action.payload];
+            state.updatedMeals= state.updatedMeals.filter((meal) => meal.id !== action.payload.id);
+            state.newMeals= state.newMeals.filter((meal) => meal.id !== action.payload.id);
+            state.updatedMeals= [...state.updatedMeals, action.payload];
         }
     }
 });
