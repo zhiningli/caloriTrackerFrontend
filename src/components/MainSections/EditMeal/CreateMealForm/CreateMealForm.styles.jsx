@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 export const MealFormContainer = styled.div`
-    justify-content: center;
-    align-items: center;
-`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+`;
 
 export const MealRow = styled.div`
     display: auto;
@@ -24,10 +26,11 @@ export const MultiColRow = styled.div`
 export const FoodSection = styled.div`
     display: flex;
     flex-direction: column;
-    overflow-y: auto; 
-    max-height: 200px;
     box-sizing: content-box; 
-`
+    z-index: 1;
+    position: relative;
+    overflow: visible; 
+`;
 
 export const FoodRow = styled.div`
     display: flex;

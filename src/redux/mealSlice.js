@@ -22,9 +22,14 @@ const mealSlice = createSlice({
             const removedMeal = state.currentMeals[action.payload];
             state.deleteMeals = [...state.deleteMeals, removedMeal];
             state.currentMeals = state.currentMeals.filter((meal, index) => index !== action.payload);
+        },
+        updateMeal: (state, action) => {
+            state.currentMeals = state.currentMeals.filter((meal) => meal.id !== action.payload.id);
+            state.newMeals = state.newMeals.filter((meal) => meal.id !== action.payload.id);
+            state.newMeals= [...state.newMeals, action.payload];
         }
     }
 });
 
-export const { setMeals, addMeal, clearMeal, removeMeal } = mealSlice.actions;
+export const { setMeals, addMeal, clearMeal, removeMeal, updateMeal } = mealSlice.actions;
 export default mealSlice.reducer;

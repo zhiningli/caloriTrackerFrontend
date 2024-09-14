@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 export const MealTicketContainer = styled.div`
   border: 2px solid ${props => props.theme.colorFurRed};
@@ -10,6 +10,24 @@ export const MealTicketContainer = styled.div`
   height: 140px;;
   flex-direction: row;
   display:flex;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Darken slightly */
+  }
+
+  ${({ $status }) =>
+    $status === 'delete-pending' &&
+    css`
+      background-color: rgba(0, 0, 0, 0.3); /* Dark overlay */
+    `}
+    
+  ${({ $status }) =>
+    $status === 'new' &&
+    css`
+      background-color: rgba(0, 255, 0, 0.1); /* Light green overlay */
+    `}
 `;
 
 export const MealTicketFirstCol = styled.div`
@@ -109,17 +127,17 @@ export const MealCaloriesUnit = styled.p`
 `;
 
 export const MealIngredients = styled.div`
-  flex-grow: 1;
+  display: flex;               /* Enables flexbox */
+  align-items: center;          /* Centers content vertically */
   background-color: transparent;
-  color: ${props => props.theme.colorPandaBrown};
   text-align: left;
-  width: 100%-20px;
-  height: 50%-20px;
+  width: calc(100% - 20px);     /* Adjust width minus margin */
   font-size: 14px;
   margin-bottom: 10px;
   margin-left: 20px;
   margin-top: 10px;
-`
+  /* Removing height calculation to let the content define the height */
+`;
 
 export const MealMetricsContainer = styled.div`
   display: flex;

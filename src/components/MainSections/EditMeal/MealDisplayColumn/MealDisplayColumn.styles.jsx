@@ -8,6 +8,6 @@ export const MealDisplayColumnContainer = styled.div`
     height: 100%;
     width: 100%;
     max-height: 100vh;
-    overflow: auto;
+    overflow: visible;
     padding: 10px;
 `
