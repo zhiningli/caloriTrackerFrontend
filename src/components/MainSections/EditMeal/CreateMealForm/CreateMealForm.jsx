@@ -12,7 +12,7 @@ import Button from '../../../Reusable Components/Button/Button';
 import IconButton from '../../../Reusable Components/IconButtons/IconButton';
 import { MealRow, MultiColRow, FoodRow, FoodSection, MealFormContainer } from './CreateMealForm.styles';
 
-import { handleAddMeal, handleSubmitMeals, handleAddFood, handleAddNewMeal, handleDeleteFood, calculateTotalNutrients, handleUpdateMeal } from './CreateMealFormMethods';
+import { handleAddMeal, handleSubmitMeals, handleDeleteMeals, handleAddFood, handleAddNewMeal, handleDeleteFood, calculateTotalNutrients, handleUpdateMeal } from './CreateMealFormMethods';
 import { FoodCategory } from '../../../Reusable Components/Category/CategoryMap';
 
 const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals, deleteMeals, updatedMeals, slug, token }) => {
@@ -43,14 +43,16 @@ const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals
     const foodNames = useWatch({ control, name: 'foodNames' });
 
     const onAddMeal = (data) => handleAddMeal(data, dispatch);
-    const onUpdateMeal = (data) => {
-        const selectedID = propSelectedMeal.id;
-        handleUpdateMeal(data, selectedID, dispatch);
+    const onUpdateMeal = (data) => {const selectedID = propSelectedMeal.id; handleUpdateMeal(data, selectedID, dispatch);};
+
+    const onAddNewMeal = () => { handleAddNewMeal(reset, setSelectedMeal);};
+
+    const onDeleteMeal = (data) => {
+        const selectedId = propSelectedMeal.id; 
+        handleDeleteMeals(data, selectedId,dispatch)
     };
 
-    const onAddNewMeal = () => {handleAddNewMeal(reset, setSelectedMeal);};
-
-    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, updatedMeals, slug, token, dispatch);
+    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, updatedMeals, deleteMeals,slug, token, dispatch);
 
     useEffect(() => {
         if (selectedMeal) {
@@ -143,6 +145,7 @@ const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals
                                 text='Add New Meal'
                                 onClick={onAddNewMeal}
                             />
+                            <Button type="submit" text='Delete Meal' onClick={handleSubmit(onDeleteMeal)} />
                         </>
                     ) : (
                         <Button type="submit" text='Add Meal' />

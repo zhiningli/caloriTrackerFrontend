@@ -56,20 +56,20 @@ export const handleAddNewMeal = (reset, setSelectedMeal) => {
 export const handleUpdateMeal = (data, selectedID, dispatch) => {
     const formattedData = formatMealData(data);
     const formattedDataWithID = { ...formattedData, id: selectedID };
-    console.log(formattedDataWithID);
     dispatch(updateMeal(formattedDataWithID));
 }
 
-export const handleRemoveMeal = (data, dispatch) => {
+export const handleDeleteMeals = (data, selectedID, dispatch) => {
     const formattedData = formatMealData(data);
-    dispatch(removeMeal(formattedData));
+    const formattedDataWithID = {...formattedData, id: selectedID};
+    dispatch(removeMeal(formattedDataWithID));
 };
 
-export const handleSubmitMeals = async (newMeals, currentMeals,updatedMeals, slug, token, dispatch) => {
-    if (newMeals.length === 0 && updatedMeals.length === 0) {
-        alert("No new meals to save");
-        return;
-    }
+export const handleSubmitMeals = async (newMeals, currentMeals, updatedMeals, deleteMeals, slug, token, dispatch) => {
+
+    console.log('Meals to be deleted:', deleteMeals);
+    console.log('Meals to be created:', newMeals);
+    console.log('Meals to be updated:', updatedMeals);
 
     try {
         const newMealresponse = await axios.post(
@@ -92,8 +92,19 @@ export const handleSubmitMeals = async (newMeals, currentMeals,updatedMeals, slu
             }
         );
 
+        const deleteMealResponse = await axios.delete(
+            `http://localhost:8080/api/${slug}/meals/deleteMealsByBatch`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                data:deleteMeals,
+            }
+        )
+
         const savedMeal = newMealresponse.data.map((meal) => meal.mealDto).concat(updatedMealResponse.data.map((meal) => meal.mealDto));
         console.log('savedMeal returned from the backend', savedMeal);
+        console.log('DeleteMealResponse', deleteMealResponse);
         dispatch(setMeals([...currentMeals, ...savedMeal]));
         dispatch(clearMeal());
 

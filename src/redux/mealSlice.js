@@ -19,18 +19,30 @@ const mealSlice = createSlice({
         clearMeal: (state, action) => {
             state.newMeals = [];
             state.updatedMeals = [];
+            state.deleteMeals = [];
         },
         removeMeal: (state, action) => {
-            const removedMeal = state.currentMeals[action.payload];
-            state.deleteMeals = [...state.deleteMeals, removedMeal];
-            state.currentMeals = state.currentMeals.filter((meal, index) => index !== action.payload);
-        },
-        updateMeal: (state, action) => {
             state.currentMeals = state.currentMeals.filter((meal) => meal.id !== action.payload.id);
             state.updatedMeals= state.updatedMeals.filter((meal) => meal.id !== action.payload.id);
             state.newMeals= state.newMeals.filter((meal) => meal.id !== action.payload.id);
-            state.updatedMeals= [...state.updatedMeals, action.payload];
-        }
+            state.deleteMeals = [...state.deleteMeals, action.payload];
+            console.log(state.currentMeals);
+            console.log(state.updatedMeals);
+        },
+        updateMeal: (state, action) => {
+
+            const existingNewMealIndex = state.newMeals.findIndex((meal) => meal.id === action.payload.id);
+            state.currentMeals = state.currentMeals.filter((meal) => meal.id !== action.payload.id);
+            state.updatedMeals = state.updatedMeals.filter((meal) => meal.id !== action.payload.id);
+            state.newMeals = state.newMeals.filter((meal) => meal.id !== action.payload.id);
+          
+
+            if (existingNewMealIndex !== -1) {
+              state.newMeals[existingNewMealIndex] = action.payload;
+            } else {
+              state.updatedMeals = [...state.updatedMeals, action.payload];
+            }
+          }
     }
 });
 
