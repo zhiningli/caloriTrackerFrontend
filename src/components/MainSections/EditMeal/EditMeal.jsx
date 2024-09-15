@@ -36,6 +36,7 @@ function EditMeal() {
                         currentMeals={currentMeals} 
                         newMeals={newMeals} 
                         updatedMeals={updatedMeals}
+                        deleteMeals={deleteMeals}
                         slug={slug} 
                         token={token} />
                 </CreateMealSubSection>

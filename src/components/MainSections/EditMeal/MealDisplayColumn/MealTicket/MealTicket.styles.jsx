@@ -6,7 +6,7 @@ export const MealTicketContainer = styled.div`
   margin: 10px;
   background-color: ${props => props.theme.colorSoftWhite};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  width: 495px;
   height: 140px;;
   flex-direction: row;
   display:flex;

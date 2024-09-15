@@ -52,7 +52,7 @@ const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals
         handleDeleteMeals(data, selectedId,dispatch)
     };
 
-    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, updatedMeals, slug, token, dispatch);
+    const onSubmit = () => handleSubmitMeals(newMeals, currentMeals, updatedMeals, deleteMeals,slug, token, dispatch);
 
     useEffect(() => {
         if (selectedMeal) {
