@@ -21,15 +21,19 @@ const mealSlice = createSlice({
             state.updatedMeals = [];
         },
         removeMeal: (state, action) => {
-            const removedMeal = state.currentMeals[action.payload];
-            state.deleteMeals = [...state.deleteMeals, removedMeal];
-            state.currentMeals = state.currentMeals.filter((meal, index) => index !== action.payload);
+            state.currentMeals = state.currentMeals.filter((meal) => meal.id !== action.payload.id);
+            state.updatedMeals= state.updatedMeals.filter((meal) => meal.id !== action.payload.id);
+            state.newMeals= state.newMeals.filter((meal) => meal.id !== action.payload.id);
+            state.deleteMeals = [...state.deleteMeals, action.payload];
+            console.log(state.currentMeals);
+            console.log(state.updatedMeals);
         },
         updateMeal: (state, action) => {
             state.currentMeals = state.currentMeals.filter((meal) => meal.id !== action.payload.id);
             state.updatedMeals= state.updatedMeals.filter((meal) => meal.id !== action.payload.id);
             state.newMeals= state.newMeals.filter((meal) => meal.id !== action.payload.id);
             state.updatedMeals= [...state.updatedMeals, action.payload];
+
         }
     }
 });

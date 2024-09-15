@@ -56,13 +56,13 @@ export const handleAddNewMeal = (reset, setSelectedMeal) => {
 export const handleUpdateMeal = (data, selectedID, dispatch) => {
     const formattedData = formatMealData(data);
     const formattedDataWithID = { ...formattedData, id: selectedID };
-    console.log(formattedDataWithID);
     dispatch(updateMeal(formattedDataWithID));
 }
 
-export const handleRemoveMeal = (data, dispatch) => {
+export const handleDeleteMeals = (data, selectedID, dispatch) => {
     const formattedData = formatMealData(data);
-    dispatch(removeMeal(formattedData));
+    const formattedDataWithID = {...formattedData, id: selectedID};
+    dispatch(removeMeal(formattedDataWithID));
 };
 
 export const handleSubmitMeals = async (newMeals, currentMeals,updatedMeals, slug, token, dispatch) => {

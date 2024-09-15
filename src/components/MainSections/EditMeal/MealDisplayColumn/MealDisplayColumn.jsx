@@ -7,6 +7,7 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,
     console.log('currentMeals: ', currentMeals);
     console.log('newMeals: ', newMeals);
     console.log('updateMeals', updatedMeals);
+    console.log('deletedMeals', deleteMeals);
     const getCalories = (meal) => (meal.caloriesPerGram * meal.weight).toFixed(0);
     const getProteins = (meal) => (meal.proteinsPerGram * meal.weight).toFixed(0);
     const getFats = (meal) => (meal.fatsPerGram * meal.weight).toFixed(0);
@@ -14,6 +15,7 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,
     const getIngredients = (meal) => Object.keys(meal.foodNames);
 
     const [newMealsWithNutrition, setNewMealsWithNutrition] = useState([]);
+    const [deleteMealsWithNutrition, setDeleteMealsWithNutrition] = useState([]);
 
     useEffect(() => {
         const fetchNutritionForNewMeals = async () => {
@@ -35,6 +37,26 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,
         }
     }, [newMeals, updatedMeals]);
 
+
+    useEffect(() => {
+        const fetchNutritionForDeleteMeals = async () => {
+            const mealLackNutritionInfo = deleteMeals;
+            const mealsWithNutrition = await Promise.all(mealLackNutritionInfo.map(async (meal) => {
+                const nutrition = await getNutritions(meal);
+                return {
+                    ...meal,
+                    ...nutrition,
+                };
+            }));
+            setDeleteMealsWithNutrition(mealsWithNutrition);
+        };
+
+        if (deleteMeals.length === 0) {
+            setDeleteMealsWithNutrition([]);
+        } else {
+            fetchNutritionForDeleteMeals();
+        }
+    }, [deleteMeals]);
 
     return (
         <MealDisplayColumnContainer>
@@ -73,16 +95,16 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,
                     ))
                 )}
     
-                {deleteMeals.length > 0 && (
-                    deleteMeals.map((meal, index) => (
+                {deleteMealsWithNutrition.length > 0 && (
+                    deleteMealsWithNutrition.map((meal, index) => (
                         <MealTicket
                             key={`deleteMeal-${index}`}
                             name={meal.name}
                             category={meal.category}
-                            calories={getCalories(meal)}
-                            proteins={getProteins(meal)}
-                            fats={getFats(meal)}
-                            carbs={getCarbs(meal)}
+                            calories={meal.calories}
+                            proteins={meal.proteins}
+                            fats={meal.fats}
+                            carbs={meal.carbs}
                             ingredients={getIngredients(meal)}
                             onTicketClick={() => onTicketClick(meal.id)}
                             status={"delete-pending"}
