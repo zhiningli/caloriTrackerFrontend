@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { MainSectionContainer } from '../MainSection.style';
-import { CreateMealHeader, CreateMealSection, CreateMealSubSection } from './EditMeal.styled';
+import { CreateMealHeader, CreateMealSection, CreateMealSubSection, CreateMealCalendarSection } from './EditMeal.styled';
 import CreateMealForm from './CreateMealForm/CreateMealForm';
 import MealDisplayColumn from './MealDisplayColumn/MealDisplayColumn';
+import CalendarRow from './CalendarRow/CalendarRow';
+import MealPlanSummaryBoard from './HeaderComponents/MealPlanSummaryBoard/MealPlanSummaryBoard';
+import MealPlanStatistics from './HeaderComponents/MealPlanStatistics/MealPlanStatistics';
 
 function EditMeal() {
 
@@ -25,9 +28,12 @@ function EditMeal() {
     return (
         <MainSectionContainer>
             <CreateMealHeader>
-                <h2>Create your meal here</h2>
-                <h2>Here also should have the option of choosing date</h2>
+                <MealPlanSummaryBoard/>
+                <MealPlanStatistics/>
             </CreateMealHeader>
+            <CreateMealCalendarSection>
+                <CalendarRow/>
+            </CreateMealCalendarSection>
 
             <CreateMealSection>
                 <CreateMealSubSection>
