@@ -1,6 +1,5 @@
 import moment from 'moment';
 
-
 export const formatDate = (date) => {
     console.log(date);
 

@@ -7,9 +7,13 @@ import MealDisplayColumn from './MealDisplayColumn/MealDisplayColumn';
 import CalendarRow from './CalendarRow/CalendarRow';
 import MealPlanSummaryBoard from './HeaderComponents/MealPlanSummaryBoard/MealPlanSummaryBoard';
 import MealPlanStatistics from './HeaderComponents/MealPlanStatistics/MealPlanStatistics';
+import { formatDate } from '../../../utils/dateUtil';
 
 function EditMeal() {
 
+
+    const formattedDate = formatDate(new Date());
+    console.log(typeof formattedDate);
     const currentMeals = useSelector((state) => state.meals.currentMeals);
     const newMeals = useSelector((state) => state.meals.newMeals);
     const deleteMeals = useSelector((state) => state.meals.deleteMeals);
@@ -28,7 +32,7 @@ function EditMeal() {
     return (
         <MainSectionContainer>
             <CreateMealHeader>
-                <MealPlanSummaryBoard/>
+                <MealPlanSummaryBoard date={formattedDate}/>
                 <MealPlanStatistics/>
             </CreateMealHeader>
             <CreateMealCalendarSection>
