@@ -37,7 +37,7 @@ function EditMeal() {
                 <MealPlanStatistics/>
             </CreateMealHeader>
             <CreateMealCalendarSection>
-                <CalendarRow/>
+                <CalendarRow date={formattedDate}/>
             </CreateMealCalendarSection>
 
             <CreateMealSection>
