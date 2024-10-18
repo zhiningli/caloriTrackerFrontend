@@ -1,13 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import MealTicket from './MealTicket/MealTicket';
 import { MealDisplayColumnContainer } from './MealDisplayColumn.styles';
 import { getNutritions } from '../../../../utils/nutritionUtil';
+import { filterMealsByDate } from '../EditMealUtil';
 
-const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,onTicketClick }) => {
+const MealDisplayColumn = ({ date, currentMeals, newMeals, deleteMeals, updatedMeals, onTicketClick }) => {
+
     console.log('currentMeals: ', currentMeals);
     console.log('newMeals: ', newMeals);
     console.log('updateMeals', updatedMeals);
     console.log('deletedMeals', deleteMeals);
+
     const getCalories = (meal) => (meal.caloriesPerGram * meal.weight).toFixed(0);
     const getProteins = (meal) => (meal.proteinsPerGram * meal.weight).toFixed(0);
     const getFats = (meal) => (meal.fatsPerGram * meal.weight).toFixed(0);
@@ -19,7 +22,10 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,
 
     useEffect(() => {
         const fetchNutritionForNewMeals = async () => {
-            const mealLackNutritionInfo = newMeals.concat(updatedMeals);
+            const filteredNewMeals = filterMealsByDate(newMeals, date);
+            const filteredUpdatedMeals = filterMealsByDate(updatedMeals, date);
+
+            const mealLackNutritionInfo = filteredNewMeals.concat(filteredUpdatedMeals);
             const mealsWithNutrition = await Promise.all(mealLackNutritionInfo.map(async (meal) => {
                 const nutrition = await getNutritions(meal);
                 return {
@@ -35,13 +41,13 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,
         } else {
             fetchNutritionForNewMeals();
         }
-    }, [newMeals, updatedMeals]);
-
+    }, [newMeals, updatedMeals, date]); 
 
     useEffect(() => {
         const fetchNutritionForDeleteMeals = async () => {
-            const mealLackNutritionInfo = deleteMeals;
-            const mealsWithNutrition = await Promise.all(mealLackNutritionInfo.map(async (meal) => {
+            const filteredDeleteMeals = filterMealsByDate(deleteMeals, date);
+
+            const mealsWithNutrition = await Promise.all(filteredDeleteMeals.map(async (meal) => {
                 const nutrition = await getNutritions(meal);
                 return {
                     ...meal,
@@ -56,14 +62,16 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,
         } else {
             fetchNutritionForDeleteMeals();
         }
-    }, [deleteMeals]);
+    }, [deleteMeals, date]);  // Add 'date' as a dependency here
+
+    const filteredCurrentMeals = filterMealsByDate(currentMeals, date);
 
     return (
         <MealDisplayColumnContainer>
-            <h3 style={{ marginBottom: '10px' }}>Meal plans for YYYY-MM-DD</h3>
+            <h3 style={{ marginBottom: '10px' }}>Meal plans for {date}</h3>
             <div>
-                {currentMeals.length > 0 && (
-                    currentMeals.map((meal, index) => (
+                {filteredCurrentMeals.length > 0 && (
+                    filteredCurrentMeals.map((meal, index) => (
                         <MealTicket
                             key={`currentMeal-${index}`}
                             name={meal.name}
@@ -114,7 +122,6 @@ const MealDisplayColumn = ({ currentMeals, newMeals, deleteMeals, updatedMeals ,
             </div>
         </MealDisplayColumnContainer>
     );
-    
 };
 
 export default MealDisplayColumn;

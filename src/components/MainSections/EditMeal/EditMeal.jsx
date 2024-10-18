@@ -13,15 +13,16 @@ function EditMeal() {
 
 
     const formattedDate = formatDate(new Date());
-    console.log(typeof formattedDate);
-    const currentMeals = useSelector((state) => state.meals.currentMeals);
-    const newMeals = useSelector((state) => state.meals.newMeals);
-    const deleteMeals = useSelector((state) => state.meals.deleteMeals);
-    const updatedMeals = useSelector((state)=> state.meals.updatedMeals)
     const slug = useSelector((state) => state.user.slug);
     const token = useSelector((state) => state.user.token);
 
+    const currentMeals = useSelector(state => state.meals.currentMeals);
+    const newMeals = useSelector(state => state.meals.newMeals);
+    const deleteMeals = useSelector(state => state.meals.deleteMeals);
+    const updatedMeals = useSelector(state => state.meals.updatedMeals);
+
     const [selectedMealId, setSelectedMealId] = useState(null);
+
     
     const selectedMeal = currentMeals.concat(newMeals, deleteMeals, updatedMeals).find((meal) => meal.id === selectedMealId);
 
@@ -52,7 +53,8 @@ function EditMeal() {
                 </CreateMealSubSection>
 
                 <MealTicketDisplaySection>
-                    <MealDisplayColumn 
+                    <MealDisplayColumn
+                        date = {formattedDate} 
                         currentMeals={currentMeals} 
                         newMeals={newMeals} 
                         deleteMeals={deleteMeals} 
