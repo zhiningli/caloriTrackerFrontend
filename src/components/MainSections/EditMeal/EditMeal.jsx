@@ -43,6 +43,7 @@ function EditMeal() {
             <CreateMealSection>
                 <CreateMealSubSection>
                     <CreateMealForm 
+                        date={formattedDate}
                         selectedMeal={selectedMeal} 
                         currentMeals={currentMeals} 
                         newMeals={newMeals} 

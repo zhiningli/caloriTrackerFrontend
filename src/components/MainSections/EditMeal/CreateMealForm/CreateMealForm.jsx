@@ -15,7 +15,7 @@ import { MealRow, MultiColRow, FoodRow, FoodSection, MealFormContainer } from '.
 import { handleAddMeal, handleSubmitMeals, handleDeleteMeals, handleAddFood, handleAddNewMeal, handleDeleteFood, calculateTotalNutrients, handleUpdateMeal } from './CreateMealFormMethods';
 import { FoodCategory } from '../../../Reusable Components/Category/CategoryMap';
 
-const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals, deleteMeals, updatedMeals, slug, token }) => {
+const CreateMealForm = ({date, selectedMeal: propSelectedMeal, newMeals, currentMeals, deleteMeals, updatedMeals, slug, token }) => {
     console.log(propSelectedMeal);
     const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const CreateMealForm = ({ selectedMeal: propSelectedMeal, newMeals, currentMeals
         defaultValues: {
             name: '',
             category: 'COMPOSITE',
-            consumptionDate: '',
+            consumptionDate: date,
             consumptionTime: '',
             foodNames: [{ name: '', quantity: 0 }]
         },
