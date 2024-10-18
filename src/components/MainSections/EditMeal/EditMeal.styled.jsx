@@ -26,6 +26,14 @@ export const CreateMealSection = styled.div`
     height: 90%;
 `
 
+export const MealTicketDisplaySection = styled.div`
+    padding: 0 20px 20px 20px;
+    width: 50%;
+    background-color: ${props => props.theme.colorIvory};
+    justify-content: center;
+    display: flex;
+    `
+
 export const CreateMealSubSection = styled.div`
     padding: 0 20px 20px 20px;
     width: 50%;

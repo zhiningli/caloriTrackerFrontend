@@ -6,7 +6,7 @@ export const MealDisplayColumnContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     height: 100%;
-    width: 100%;
+    width: 500px;
     max-height: 100vh;
     overflow: visible;
     padding: 10px;

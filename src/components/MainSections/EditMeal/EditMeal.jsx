@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { MainSectionContainer } from '../MainSection.style';
-import { CreateMealHeader, CreateMealSection, CreateMealSubSection, CreateMealCalendarSection } from './EditMeal.styled';
+import { CreateMealHeader, CreateMealSection, CreateMealSubSection, CreateMealCalendarSection, MealTicketDisplaySection } from './EditMeal.styled';
 import CreateMealForm from './CreateMealForm/CreateMealForm';
 import MealDisplayColumn from './MealDisplayColumn/MealDisplayColumn';
 import CalendarRow from './CalendarRow/CalendarRow';
@@ -47,7 +47,7 @@ function EditMeal() {
                         token={token} />
                 </CreateMealSubSection>
 
-                <CreateMealSubSection>
+                <MealTicketDisplaySection>
                     <MealDisplayColumn 
                         currentMeals={currentMeals} 
                         newMeals={newMeals} 
@@ -55,7 +55,7 @@ function EditMeal() {
                         updatedMeals={updatedMeals}
                         onTicketClick={handleTicketClick} 
                     />
-                </CreateMealSubSection>
+                </MealTicketDisplaySection>
             </CreateMealSection>
         </MainSectionContainer>
     );
