@@ -19,10 +19,6 @@ const CalendarRow = ({ date, onDayClick }) => {
                 const isToday = isSameDay(currentDay, today);
                 const isSelected = isSameDay(currentDay, parsedDate);
 
-                console.log('Current Day:', currentDay);
-                console.log('Day of Month:', dayOfMonth);
-                
-
                 return (
                     <DayBlock 
                         onClick={() => onDayClick(currentDay)}
