@@ -17,6 +17,7 @@ const CalendarRow = ({ date, onDayClick }) => {
                 const currentDay = addDays(startOfTheWeek, index);
                 const dayOfMonth = format(currentDay, 'dd');
                 const isToday = isSameDay(currentDay, today);
+                const isSelected = isSameDay(currentDay, parsedDate);
 
                 console.log('Current Day:', currentDay);
                 console.log('Day of Month:', dayOfMonth);
@@ -26,7 +27,9 @@ const CalendarRow = ({ date, onDayClick }) => {
                     <DayBlock 
                         onClick={() => onDayClick(currentDay)}
                         key={index} 
-                        $isToday={isToday}>
+                        $isToday={isToday}
+                        $isSelected={isSelected}
+                        >
                         <div>{day}</div>
                         <div>{dayOfMonth}</div>
                     </DayBlock>

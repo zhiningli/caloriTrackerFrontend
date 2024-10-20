@@ -5,6 +5,7 @@ const themeColor = {
     colorDeepTerracotta: '#B34729',
     colorIvory: '#F8F4E6',
     colorDarkChocolate: '#3D2A1B',
+    colorAlabaster: '#F4F0E4', 
 };
 
 export default themeColor;

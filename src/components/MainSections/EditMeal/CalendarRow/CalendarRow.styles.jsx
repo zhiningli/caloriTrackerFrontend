@@ -10,8 +10,9 @@ export const CalendarRowContainer = styled.div`
 export const DayBlock = styled.button`
     width: 14%;
     height: 60px; 
-    background-color: ${props => (props.$isToday ? props.theme.colorSoftWhite : props.theme.colorIvory)};
+    background-color: ${props => (props.$isSelected ? props.theme.colorFurRed : props.$isToday ? props.theme.colorSoftWhite : props.theme.colorIvory)};
     border: 1px solid ${props => props.theme.colorSoftWhite};
+    color: ${props => (props.$isSelected ? 'white' : 'black')};
     display: flex;
     flex-direction: column;
     justify-content: center;
