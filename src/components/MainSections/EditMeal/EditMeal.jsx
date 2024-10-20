@@ -41,6 +41,10 @@ function EditMeal() {
         setSelectedDate(addWeeks(selectedDate, 1));
     };
 
+    const handleDayClick = (date) => {
+        setSelectedDate(date);
+    };
+
     return (
         <MainSectionContainer>
             <CreateMealHeader>
@@ -50,7 +54,7 @@ function EditMeal() {
             <button onClick={handlePreviousWeek}> Previous Week </button>
             <button onClick={handleNextWeek}> Next Week </button>
             <CreateMealCalendarSection>
-                <CalendarRow date={formattedDate}/>
+                <CalendarRow date={formattedDate} onDayClick={handleDayClick}/>
             </CreateMealCalendarSection>
 
             <CreateMealSection>

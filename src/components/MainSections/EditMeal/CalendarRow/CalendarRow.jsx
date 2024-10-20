@@ -2,7 +2,7 @@ import React from 'react';
 import { CalendarRowContainer, DayBlock } from './CalendarRow.styles';
 import { format, startOfWeek, addDays, isSameDay } from 'date-fns';
 
-const CalendarRow = ({ date }) => {
+const CalendarRow = ({ date, onDayClick }) => {
     const parsedDate = new Date(date);
     console.log('Parsed date', parsedDate);
     const today = new Date(); 
@@ -23,7 +23,10 @@ const CalendarRow = ({ date }) => {
                 
 
                 return (
-                    <DayBlock key={index} $isToday={isToday}>
+                    <DayBlock 
+                        onClick={() => onDayClick(currentDay)}
+                        key={index} 
+                        $isToday={isToday}>
                         <div>{day}</div>
                         <div>{dayOfMonth}</div>
                     </DayBlock>

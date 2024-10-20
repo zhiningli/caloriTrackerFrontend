@@ -7,7 +7,7 @@ export const CalendarRowContainer = styled.div`
     justify-content: space-between;
 `;
 
-export const DayBlock = styled.div`
+export const DayBlock = styled.button`
     width: 14%;
     height: 60px; 
     background-color: ${props => (props.$isToday ? props.theme.colorSoftWhite : props.theme.colorIvory)};
