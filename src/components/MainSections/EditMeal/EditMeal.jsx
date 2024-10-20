@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { MainSectionContainer } from '../MainSection.style';
-import { CreateMealHeader, CreateMealSection, CreateMealSubSection, CreateMealCalendarSection, MealTicketDisplaySection } from './EditMeal.styled';
+import { CreateMealHeader, CreateMealSection, CreateMealSubSection, CreateMealCalendarSection, MealTicketDisplaySection, CalendarButton } from './EditMeal.styled';
 import CreateMealForm from './CreateMealForm/CreateMealForm';
 import MealDisplayColumn from './MealDisplayColumn/MealDisplayColumn';
 import CalendarRow from './CalendarRow/CalendarRow';
@@ -9,6 +9,9 @@ import MealPlanSummaryBoard from './HeaderComponents/MealPlanSummaryBoard/MealPl
 import MealPlanStatistics from './HeaderComponents/MealPlanStatistics/MealPlanStatistics';
 import { formatDate } from '../../../utils/dateUtil';
 import { addWeeks, subWeeks } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
 
 function EditMeal() {
 
@@ -51,8 +54,12 @@ function EditMeal() {
                 <MealPlanSummaryBoard date={formattedDate}/>
                 <MealPlanStatistics/>
             </CreateMealHeader>
-            <button onClick={handlePreviousWeek}> Previous Week </button>
-            <button onClick={handleNextWeek}> Next Week </button>
+            <CalendarButton onClick={handlePreviousWeek}> 
+                <FontAwesomeIcon icon={faChevronLeft} />
+            </CalendarButton>
+            <CalendarButton onClick={handleNextWeek}> 
+                <FontAwesomeIcon icon={faChevronRight} />
+            </CalendarButton>
             <CreateMealCalendarSection>
                 <CalendarRow date={formattedDate} onDayClick={handleDayClick}/>
             </CreateMealCalendarSection>

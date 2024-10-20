@@ -39,3 +39,16 @@ export const CreateMealSubSection = styled.div`
     width: 50%;
     background-color: ${props => props.theme.colorIvory};
 `
+
+export const CalendarButton = styled.button`
+    margin: 10px 0px 10px 20px;
+    background-color: ${props => props.theme.colorFurRed};
+    color: white;
+    border: none;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 40px;
+    height: 25px;
+`
