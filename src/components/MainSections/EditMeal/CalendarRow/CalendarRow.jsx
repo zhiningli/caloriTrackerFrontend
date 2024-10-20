@@ -4,6 +4,7 @@ import { format, startOfWeek, addDays, isSameDay } from 'date-fns';
 
 const CalendarRow = ({ date }) => {
     const parsedDate = new Date(date);
+    console.log('Parsed date', parsedDate);
     const today = new Date(); 
 
     const startOfTheWeek = startOfWeek(parsedDate, { weekStartsOn: 0 });
@@ -16,6 +17,10 @@ const CalendarRow = ({ date }) => {
                 const currentDay = addDays(startOfTheWeek, index);
                 const dayOfMonth = format(currentDay, 'dd');
                 const isToday = isSameDay(currentDay, today);
+
+                console.log('Current Day:', currentDay);
+                console.log('Day of Month:', dayOfMonth);
+                
 
                 return (
                     <DayBlock key={index} $isToday={isToday}>

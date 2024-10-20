@@ -8,11 +8,14 @@ import CalendarRow from './CalendarRow/CalendarRow';
 import MealPlanSummaryBoard from './HeaderComponents/MealPlanSummaryBoard/MealPlanSummaryBoard';
 import MealPlanStatistics from './HeaderComponents/MealPlanStatistics/MealPlanStatistics';
 import { formatDate } from '../../../utils/dateUtil';
+import { addWeeks, subWeeks } from 'date-fns';
 
 function EditMeal() {
 
 
-    const formattedDate = formatDate(new Date());
+    const [selectedDate, setSelectedDate] = useState(new Date())
+    const formattedDate = formatDate(selectedDate);
+
     const slug = useSelector((state) => state.user.slug);
     const token = useSelector((state) => state.user.token);
 
@@ -30,12 +33,22 @@ function EditMeal() {
         setSelectedMealId(id); 
     };
 
+    const handlePreviousWeek = () => {
+        setSelectedDate(subWeeks(selectedDate, 1));
+    };
+
+    const handleNextWeek = () => {
+        setSelectedDate(addWeeks(selectedDate, 1));
+    };
+
     return (
         <MainSectionContainer>
             <CreateMealHeader>
                 <MealPlanSummaryBoard date={formattedDate}/>
                 <MealPlanStatistics/>
             </CreateMealHeader>
+            <button onClick={handlePreviousWeek}> Previous Week </button>
+            <button onClick={handleNextWeek}> Next Week </button>
             <CreateMealCalendarSection>
                 <CalendarRow date={formattedDate}/>
             </CreateMealCalendarSection>
