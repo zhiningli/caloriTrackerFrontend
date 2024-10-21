@@ -10,6 +10,8 @@ function UpdateHealthData() {
         defaultValues: {
             height: '',
             weight: '',
+            yearOfBirth: '',
+            bodyFatPercentage: "",
             biologicalSex: "",
         },
     });
@@ -40,6 +42,19 @@ function UpdateHealthData() {
                             min: { value: 20, message: "Weight must be at least 20 kg" }, 
                             max: { value: 300, message: "Weight must be under 300 kg" }
                         }}
+                    />
+                    <NumberInput
+                        name="yearOfBirth"
+                        label="Year of birth"
+                        validationRules={{ 
+                            min: { value: 1900, message: "Select year between 1900 and 2024" }, 
+                            max: { value: 2024, message: "Select year between 1900 and 2024" }
+                        }}
+                    />
+                    <NumberInput
+                        name="bodyFatPercentage"
+                        label="Body Fat Percentage (optional)"
+                        isRequired={false}
                     />
                     <Select
                         name="biologicalSex"
